@@ -194,7 +194,7 @@ public class Matriz
                 
                 if (matrizEl != comparEl)
                 {
-                    System.out.println("qpd: "+matrizEl+" | "+comparEl);
+                    System.out.println("err: "+matrizEl+" =/= "+comparEl+" ["+i+","+j+"]");
                     return false;
                 }
             }
@@ -206,13 +206,27 @@ public class Matriz
      * Asigna los elementos de la matriz utilizando un arreglo bidimensional
      * @param elementos float[][] Arreglo bidimensional de numeros
      */
-    public void asignarElementos(float[][] elementos)
+    public void asignarElementos(float[][] elementos, int maxFilas, int maxColumnas)
     {
-        for (int i = 0; i < this.getFilas(); i++)
+        for (int i = 0; i < maxFilas; i++)
         {
-            for (int j = 0; j < this.getColumnas(); j++)
+            for (int j = 0; j < maxColumnas; j++)
             {
                 this.setElemento(i, j, elementos[i][j]);
+            }
+        }
+    }
+    
+    /**
+     * Redondea los elementos de la matriz 2 puntos decimales
+     */
+    public void redondearElementos()
+    {
+        for (int i = 0; i < getFilas(); i++)
+        {
+            for (int j = 0; j < getColumnas(); j++)
+            {
+                this.setElemento(i, j, Math.round(elementos[i][j]*100.0F)/100.0F);
             }
         }
     }

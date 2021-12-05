@@ -1,28 +1,20 @@
 -------------------------------------------------------------------------------
 Test set: matrices.OperadorMatricesTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec <<< FAILURE!
-matrices.OperadorMatricesTest.testSolucionarSistema_Cramer()  Time elapsed: 0.004 sec  <<< FAILURE!
+Tests run: 8, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.028 sec <<< FAILURE!
+matrices.OperadorMatricesTest.testSolucionarSistema_GJ()  Time elapsed: 0.008 sec  <<< FAILURE!
 java.lang.AssertionError: expected:<null> but was:<matrices.Matriz@cc34f4d>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
 	at org.junit.Assert.assertEquals(Assert.java:120)
 	at org.junit.Assert.assertEquals(Assert.java:146)
-	at matrices.OperadorMatricesTest.testSolucionarSistema_Cramer(OperadorMatricesTest.java:161)
+	at matrices.OperadorMatricesTest.testSolucionarSistema_GJ(OperadorMatricesTest.java:167)
 
-matrices.OperadorMatricesTest.testCalcularInversa_GJ()  Time elapsed: 0.004 sec  <<< FAILURE!
+matrices.OperadorMatricesTest.testSolucionarSistema_Cramer()  Time elapsed: 0 sec  <<< FAILURE!
 java.lang.AssertionError: expected:<null> but was:<matrices.Matriz@2dda6444>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
 	at org.junit.Assert.assertEquals(Assert.java:120)
 	at org.junit.Assert.assertEquals(Assert.java:146)
-	at matrices.OperadorMatricesTest.testCalcularInversa_GJ(OperadorMatricesTest.java:133)
-
-matrices.OperadorMatricesTest.testSolucionarSistema_GJ()  Time elapsed: 0 sec  <<< FAILURE!
-java.lang.AssertionError: expected:<null> but was:<matrices.Matriz@4783da3f>
-	at org.junit.Assert.fail(Assert.java:89)
-	at org.junit.Assert.failNotEquals(Assert.java:835)
-	at org.junit.Assert.assertEquals(Assert.java:120)
-	at org.junit.Assert.assertEquals(Assert.java:146)
-	at matrices.OperadorMatricesTest.testSolucionarSistema_GJ(OperadorMatricesTest.java:147)
+	at matrices.OperadorMatricesTest.testSolucionarSistema_Cramer(OperadorMatricesTest.java:181)
 

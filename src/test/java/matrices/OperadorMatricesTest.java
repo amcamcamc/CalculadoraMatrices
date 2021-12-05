@@ -127,10 +127,30 @@ public class OperadorMatricesTest {
     @Test
     public void testCalcularInversa_GJ() {
         System.out.println("calcularInversa_GJ");
-        Matriz A = null;
-        Matriz expResult = null;
+        float[][] matA = {
+                            {1F,-6F,2F},
+                            {2F,-2F,-1F},
+                            {1F,-3F,-5F},
+                         };
+        float[][] matR = {
+                            {-7/55F,36/55F,-2/11F},
+                            {-9/55F,7/55F,-1/11F},
+                            {4/55F,3/55F,-2/11F},
+                         };
+        Matriz A = new Matriz(3,3,"A",matA);
+        
+        Matriz expResult = new Matriz(3,3,"R",matR);
+        expResult.redondearElementos();
         Matriz result = instance.calcularInversa_GJ(A);
-        assertEquals(expResult, result);
+        result.redondearElementos();
+        
+        System.out.println("exp:");
+        expResult.imprimir();
+        System.out.println("act:");
+        result.imprimir();
+        
+        boolean igualdadResultado = result.esIgualA(expResult);
+        assertEquals(true, igualdadResultado);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }

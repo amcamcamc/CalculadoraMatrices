@@ -89,7 +89,75 @@ public class OperadorMatrices
      */
     public Matriz calcularInversa_GJ(Matriz A)
     {
-        Matriz resultado = new Matriz(0,0,"R");
+        int tamano = A.getFilas();
+        Matriz temporal = new Matriz(tamano,tamano*2,"T");
+        temporal.asignarElementos(A.getElementos(), tamano, tamano);
+        
+        float determinante = calcularDeterminante(A);
+        if (determinante == 0) { return null; } //Cuadrada y no singular
+       
+        //Aumentar la matriz A con la matriz de identidad
+        for (int i = 0; i < tamano; i++)
+        {
+            for (int j = 0; j < tamano; j++)
+            {
+                System.out.println(i+", "+j);
+                if (i == j)
+                {
+                    temporal.setElemento(i, j+tamano, 1);
+                }
+                else
+                {
+                    temporal.setElemento(i, j+tamano, 0);
+                }
+            }
+        }
+        
+        temporal.imprimir();
+        
+        //Aplicar eliminacion de Gauss Jordan a la matriz aumentada
+        for (int i = 0; i < tamano; i++)
+        {
+            if (temporal.getElemento(i, i) == 0)
+            {
+                //return null;
+            }
+            
+            for (int j = 0; j < tamano; j++)
+            {
+                if (i != j)
+                {
+                    float radio = temporal.getElemento(j, i)/temporal.getElemento(i, i) + 0F;
+                    
+                    for (int k = 0; k < tamano*2; k++)
+                    {
+                        temporal.setElemento(j, k, temporal.getElemento(j, k) - radio * temporal.getElemento(i, k) + 0F);
+                    }
+                }
+            }
+        }
+        
+        temporal.imprimir();
+        
+        //Convertir la diagonal principal en 1s
+        for (int i = 0; i < tamano; i++)
+        {
+            for (int j = tamano; j < tamano*2; j++)
+            {
+                temporal.setElemento(i, j, temporal.getElemento(i, j)/temporal.getElemento(i, i) + 0F);
+            }
+        }
+        
+        //Eliminar la parte que sobra de la matriz resultante
+        Matriz resultado = new Matriz(A.getFilas(),A.getColumnas(),"R");
+        for (int i = 0; i < tamano; i++)
+        {
+            for (int j = 0; j < tamano; j++)
+            {
+                resultado.setElemento(i, j, temporal.getElemento(i, j+tamano));
+            }
+        }
+        
         return resultado;
     }
     

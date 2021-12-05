@@ -4,7 +4,7 @@
 * (1) Suma de matrices [X]
 * (2) Multiplicacion  de matrices por una escalar [X]
 * (3) Multiplicacion de matrices [X]
-* (4) Inversa de una matriz por Gauss-Jordan [ ]
+* (4) Inversa de una matriz por Gauss-Jordan [X]
 * (5) Solucion de un sistema de ecuaciones por Gauss-Jordan [ ]
 * (6) Determinante de una matriz [X]
 * (7) Solucion de un sistema de ecuaciones por Cramer [ ]
