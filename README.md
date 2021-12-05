@@ -1,12 +1,12 @@
 # Calculadora de Matrices  
 ---
 ### Funciones incluidas
-* (1) Suma de matrices [ ]
-* (2) Multiplicacion  de matrices por una escalar [ ]
-* (3) Multiplicacion de matrices [ ]
+* (1) Suma de matrices [X]
+* (2) Multiplicacion  de matrices por una escalar [X]
+* (3) Multiplicacion de matrices [X]
 * (4) Inversa de una matriz por Gauss-Jordan [ ]
 * (5) Solucion de un sistema de ecuaciones por Gauss-Jordan [ ]
-* (6) Determinante de una matriz [ ]
+* (6) Determinante de una matriz [X]
 * (7) Solucion de un sistema de ecuaciones por Cramer [ ]
 ---
 ### Documentos

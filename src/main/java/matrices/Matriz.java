@@ -12,7 +12,8 @@ public class Matriz
 {
     /** El identificador de la matriz.
      * Debe ser una letra entre A y H. Se utiliza la letra R para las matrices
-     * que sean resultantes de operaciones.
+     * que sean resultantes de operaciones, y se utiliza la letra T para las
+     * matrices en las cuales se realizan operaciones temporales.
      */
     private String id;
     private int filas; /** Numero de filas de la matriz */ 
@@ -25,15 +26,31 @@ public class Matriz
     /**
      * Constructor del objeto Matriz. Se utiliza para crear una matriz vacia
      * rapidamente.
-     * @param filas
-     * @param columnas
-     * @param id
+     * @param filas int Numero de filas
+     * @param columnas int Numero de columnas
+     * @param id String Identificador de la matriz
      */
     public Matriz(int filas, int columnas, String id)
     {
         this.filas = filas;
         this.columnas = columnas;
         elementos = new float[filas][columnas];
+        this.id = id;
+    }
+    
+    /**
+     * Constructor del objeto Matriz. Se utiliza para crear una matriz con valores
+     * predeterminados rapidamente.
+     * @param filas int Numero de filas
+     * @param columnas int Numero de columnas
+     * @param id String Identificador de la matriz
+     * @param elementos float[][] Elementos predeterminados
+     */
+    public Matriz(int filas, int columnas, String id, float[][] elementos)
+    {
+        this.filas = filas;
+        this.columnas = columnas;
+        this.elementos = elementos;
         this.id = id;
     }
     
@@ -137,11 +154,66 @@ public class Matriz
     }
     
     /**
-     * Retorna las dimensiones de la matriz en una cadena.
-     * @return String cadena con dimensiones formato "filasxcolumnas"
+     * Retorna si las dimensiones de las matrices comparadas son iguales.
+     * @return boolean Verdadero o Falso a la premisa.
      */
-    public String getDimensiones()
+    public boolean dimensionesIguales(Matriz comparacion)
     {
-        return ""+filas+"x"+columnas;
+        if (this.getFilas() != comparacion.getFilas()) { return false; }
+        if (this.getColumnas()!= comparacion.getColumnas()) { return false; }
+        return true;
+    }
+    
+    /**
+     * Retorna si la matriz es cuadrada o no.
+     * @return boolean Verdadero o Falso a la premisa.
+     */
+    public boolean esCuadrada()
+    {
+        return (this.getFilas() == this.getColumnas());
+    }
+    
+    /**
+     * Compara todos los elementos de dos matrices para concluir si son
+     * iguales o no.
+     * @param comparacion Matriz a comparar
+     * @return boolean Verdadero o Falso a la premisa.
+     */
+    public boolean esIgualA(Matriz comparacion)
+    {
+        for (int i = 0; i < this.getFilas(); i++)
+        {
+            for (int j = 0; j < this.getColumnas(); j++)
+            {
+                float matrizEl = this.getElemento(i, j);
+                float comparEl = comparacion.getElemento(i,j);
+                
+                //A veces los -0 no son iguales a los 0, asi que normalizamos.
+                if (matrizEl == 0 || matrizEl == -0) { matrizEl = 0.0F; }
+                if (comparEl == 0 || comparEl == -0) { comparEl = 0.0F; }
+                
+                if (matrizEl != comparEl)
+                {
+                    System.out.println("qpd: "+matrizEl+" | "+comparEl);
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Asigna los elementos de la matriz utilizando un arreglo bidimensional
+     * @param elementos float[][] Arreglo bidimensional de numeros
+     */
+    public void asignarElementos(float[][] elementos)
+    {
+        for (int i = 0; i < this.getFilas(); i++)
+        {
+            for (int j = 0; j < this.getColumnas(); j++)
+            {
+                this.setElemento(i, j, elementos[i][j]);
+            }
+        }
     }
 }

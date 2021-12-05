@@ -2,7 +2,7 @@ package interfaz;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import matrices.ManipuladorMatrices;
+import matrices.OperadorMatrices;
 import matrices.Matriz;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -19,7 +19,7 @@ public class Menu extends javax.swing.JFrame {
     private Matriz matrizH = new Matriz(3,3,"H");
     
     private MenuMatrices menuEditarMatrices;
-    private ManipuladorMatrices manipuladorMatrices = new ManipuladorMatrices();
+    private OperadorMatrices manipuladorMatrices = new OperadorMatrices();
     
     enum TipoResultado
     {
@@ -373,27 +373,35 @@ public class Menu extends javax.swing.JFrame {
         switch(seleccion.getSelectedItem().toString())
         {
             case "Suma de dos matrices":
+                resultadoEsperado = TipoResultado.Matriz;
                 procedimientoSeleccionado = Procedimiento.SumaMatrices;
                 break;
             case "Multiplicacion por Escalar":
+                resultadoEsperado = TipoResultado.Matriz;
                 procedimientoSeleccionado = Procedimiento.MultiplicacionMatrizEscalar;
                 break;
             case "Multiplicacion entre Matrices":
+                resultadoEsperado = TipoResultado.Matriz;
                 procedimientoSeleccionado = Procedimiento.MultiplicacionMatrices;
                 break;
             case "Inversa de Matriz por Gauss-Jordan":
+                resultadoEsperado = TipoResultado.Matriz;
                 procedimientoSeleccionado = Procedimiento.InversaMatrizGJ;
                 break;
             case "Solucion Sistema de Ecuaciones por Gauss-Jordan":
+                resultadoEsperado = TipoResultado.Matriz;
                 procedimientoSeleccionado = Procedimiento.SolucionSistemaGJ;
                 break;
             case "Determinante de Matriz":
+                resultadoEsperado = TipoResultado.Numero;
                 procedimientoSeleccionado = Procedimiento.DeterminanteMatriz;
                 break;
             case "Solucion Sistema de Ecuaciones por Cramer":
+                resultadoEsperado = TipoResultado.Matriz;
                 procedimientoSeleccionado = Procedimiento.SolucionSistemaCramer;
                 break;
             case "Transpuesta de Matriz":
+                resultadoEsperado = TipoResultado.Matriz;
                 procedimientoSeleccionado = Procedimiento.TranspuestaMatriz;
                 break;
             default:
@@ -407,28 +415,20 @@ public class Menu extends javax.swing.JFrame {
         switch(procedimientoSeleccionado)
         {
             case SumaMatrices:
-                resultadoEsperado = TipoResultado.Matriz;
                 return manipuladorMatrices.sumaEntreMatrices((Matriz)parametros[0], (Matriz)parametros[1]);
             case MultiplicacionMatrizEscalar:
-                resultadoEsperado = TipoResultado.Matriz;
                 return manipuladorMatrices.multiplicacionPorEscalar((Matriz)parametros[0], (float)parametros[2]);
             case MultiplicacionMatrices:
-                resultadoEsperado = TipoResultado.Matriz;
                 return manipuladorMatrices.productoEntreMatrices((Matriz)parametros[0], (Matriz)parametros[1]);
             case InversaMatrizGJ:
-                resultadoEsperado = TipoResultado.Matriz;
                 return manipuladorMatrices.calcularInversa_GJ((Matriz)parametros[0]);
             case SolucionSistemaGJ:
-                resultadoEsperado = TipoResultado.Matriz;
                 return manipuladorMatrices.solucionarSistema_GJ((Matriz)parametros[0]);
             case DeterminanteMatriz:
-                resultadoEsperado = TipoResultado.Numero;
                 return manipuladorMatrices.calcularDeterminante((Matriz)parametros[0]);
             case SolucionSistemaCramer:
-                resultadoEsperado = TipoResultado.Matriz;
                 return manipuladorMatrices.solucionarSistema_Cramer((Matriz)parametros[0]);
             case TranspuestaMatriz:
-                resultadoEsperado = TipoResultado.Matriz;
                 return manipuladorMatrices.calcularTranspuesta((Matriz)parametros[0]);
             default:
                 return null;

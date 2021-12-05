@@ -4,7 +4,7 @@ package matrices;
  * Opera con objetos Matriz
  * @author amaury
  */
-public class ManipuladorMatrices 
+public class OperadorMatrices 
 {
     /**
      * Dadas dos matrices A y B con las mismas dimensiones, retorna la suma de
@@ -15,7 +15,7 @@ public class ManipuladorMatrices
      */
     public Matriz sumaEntreMatrices(Matriz A, Matriz B)
     {
-        assert(A.getDimensiones() == B.getDimensiones());
+        assert(A.dimensionesIguales(B));
         Matriz resultado = new Matriz(A.getFilas(), A.getColumnas(), "R");
         
         for (int i = 0; i < A.getFilas(); ++i) 
@@ -120,14 +120,51 @@ public class ManipuladorMatrices
     }
     
     /**
-     * Dada una matriz A, calcula su determinante.
+     * Dada una matriz A, calcula su determinante de manera recursiva.
      * @param A Matriz A
      * @return int determinante de la matriz A.
      */
-    public int calcularDeterminante(Matriz A)
+    public float calcularDeterminante(Matriz A)
     {
-        int resultado = 0;
-        return resultado;
+        float resultado = 0;
+        
+        //Solo se puede calcular el determinante de matrices cuadradas
+        if (!A.esCuadrada()) { return 0; }
+        
+        int tamano = A.getFilas();
+        if(tamano > 2) //Si las dimensiones son mayores que 2x2
+        {
+            //Reducir la matriz de manera recursiva utilizando una matriz mas pequena
+            Matriz matrizPequena = new Matriz(tamano-1,tamano-1,"T");
+            for(int i = 0; i < tamano; i++)
+            {
+                for (int j = 0; j < tamano-1; j++)
+                {
+                    //Copiar los elementos de la matriz parametro a la matriz pequena
+                    int cont = 0;
+                    for (int k = 0; k < tamano; k++)
+                    {
+                        if (k == i) { continue; }
+                        matrizPequena.setElemento(j, cont, A.getElemento(j+1, k));
+                        cont++;
+                    }
+                }
+                //El determinante de la matriz tamano-1 x tamano-1
+                float determinantePequeno = A.getElemento(0,i)*calcularDeterminante(matrizPequena);
+                //El signo debe ser cambiado al intercambiar 2 columnas
+                resultado += Math.pow(-1,i)*determinantePequeno;
+            }
+            return resultado;
+        }
+        else if(A.getFilas() == 2) //Si las dimensiones son de 2x2
+        {
+            resultado = ((A.getElemento(0,0))*(A.getElemento(1,1))-(A.getElemento(0,1))*(A.getElemento(1,0)));
+            return resultado;
+        }
+        else 
+        {
+            return A.getElemento(0,0); //El determinante de una matriz 1x1 es el unico elemento
+        }
     }
     
     /**
