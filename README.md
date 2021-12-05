@@ -16,4 +16,4 @@
     * Checklist de las practicas aplicadas [ ]
     * Lecciones aprendidas del uso de JUnit [ ]
     * Lecciones aprendidas del uso de JavaDoc [ ]
-* (2) Documentacion en JavaDoc [ ]
+* (2) Documentacion en JavaDoc [X]

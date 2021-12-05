@@ -1,0 +1,273 @@
+\hypertarget{classmatrices_1_1_matriz}{}\doxysection{matrices.\+Matriz Class Reference}
+\label{classmatrices_1_1_matriz}\index{matrices.Matriz@{matrices.Matriz}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{enummatrices_1_1_matriz_1_1_error_matriz}{Error\+Matriz}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmatrices_1_1_matriz_a7d007a16ba99bd6642a928561ad07407}{Matriz}} (int filas, int columnas, String id)
+\item 
+\mbox{\hyperlink{classmatrices_1_1_matriz_a758ff1586bb7c51424ee4bb6d5053dd0}{Matriz}} (int filas, int columnas, String id, float\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} elementos)
+\item 
+\mbox{\hyperlink{classmatrices_1_1_matriz_a881c6341297e40ed73932cc58533022d}{Matriz}} (\mbox{\hyperlink{enummatrices_1_1_matriz_1_1_error_matriz}{Error\+Matriz}} error)
+\item 
+\mbox{\hyperlink{enummatrices_1_1_matriz_1_1_error_matriz}{Error\+Matriz}} \mbox{\hyperlink{classmatrices_1_1_matriz_ab9fe624bf088144be1de181a654fcf30}{get\+Error}} ()
+\item 
+void \mbox{\hyperlink{classmatrices_1_1_matriz_ad7968c65a345c4851280b48493f8890a}{set\+Elemento}} (int fila, int columna, float valor)
+\item 
+float \mbox{\hyperlink{classmatrices_1_1_matriz_a249de0c272c94292ca403790233cddcc}{get\+Elemento}} (int fila, int columna)
+\item 
+float\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{classmatrices_1_1_matriz_a01992d0a51459641a79309da6a103016}{get\+Elementos}} ()
+\item 
+int \mbox{\hyperlink{classmatrices_1_1_matriz_aa678944990b13f66eb70630e65b3ea2e}{get\+Filas}} ()
+\item 
+int \mbox{\hyperlink{classmatrices_1_1_matriz_aa732cf09717f00534825afddc3cfd64e}{get\+Columnas}} ()
+\item 
+String \mbox{\hyperlink{classmatrices_1_1_matriz_a5ca48d7537220f2dd1b13c98581f3025}{get\+Id}} ()
+\item 
+void \mbox{\hyperlink{classmatrices_1_1_matriz_a62ebd6f852131f6da9f0f1ab041493a3}{imprimir}} ()
+\item 
+Array\+List$<$ String $>$ \mbox{\hyperlink{classmatrices_1_1_matriz_a898c34f86460fc48517935d5f7a74836}{mostrar\+Elemento}} (int elemento\+Fila, int elemento\+Columna)
+\item 
+boolean \mbox{\hyperlink{classmatrices_1_1_matriz_ae359697fd7912ab58c48dc5314c5fb41}{dimensiones\+Iguales}} (\mbox{\hyperlink{classmatrices_1_1_matriz}{Matriz}} comparacion)
+\item 
+boolean \mbox{\hyperlink{classmatrices_1_1_matriz_a3fdba4c9395f1eaf3f13baa4f9918efe}{es\+Cuadrada}} ()
+\item 
+boolean \mbox{\hyperlink{classmatrices_1_1_matriz_a80cfb5f84ee042b0f275d89fa4482640}{es\+IgualA}} (\mbox{\hyperlink{classmatrices_1_1_matriz}{Matriz}} comparacion)
+\item 
+boolean \mbox{\hyperlink{classmatrices_1_1_matriz_a9d550f551fd34da8f53163a480b1bf86}{es\+Vacia}} ()
+\item 
+boolean \mbox{\hyperlink{classmatrices_1_1_matriz_a0e1f0dff6f8c606d4cf5838e8262db4d}{es\+Matriz\+Identidad}} ()
+\item 
+void \mbox{\hyperlink{classmatrices_1_1_matriz_a518fb6a205d32d6dccf7c2ff06837ca1}{asignar\+Elementos}} (float\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} elementos, int max\+Filas, int max\+Columnas)
+\item 
+void \mbox{\hyperlink{classmatrices_1_1_matriz_a5f0b49d72b10e334196d2eb19dd0301d}{redondear\+Elementos}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Clase \mbox{\hyperlink{classmatrices_1_1_matriz}{Matriz}}. Aqui se hace la abstraccion de lo que es un objeto \mbox{\hyperlink{classmatrices_1_1_matriz}{Matriz}} y se declaran sus propiedades que van a ser utilizadas para hacer operaciones con ellas \begin{DoxyAuthor}{Author}
+amaury 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a7d007a16ba99bd6642a928561ad07407}\label{classmatrices_1_1_matriz_a7d007a16ba99bd6642a928561ad07407}} 
+\index{matrices.Matriz@{matrices.Matriz}!Matriz@{Matriz}}
+\index{Matriz@{Matriz}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{Matriz()}{Matriz()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily matrices.\+Matriz.\+Matriz (\begin{DoxyParamCaption}\item[{int}]{filas,  }\item[{int}]{columnas,  }\item[{String}]{id }\end{DoxyParamCaption})}
+
+Constructor del objeto \mbox{\hyperlink{classmatrices_1_1_matriz}{Matriz}}. Se utiliza para crear una matriz vacia rapidamente. 
+\begin{DoxyParams}{Parameters}
+{\em filas} & int Numero de filas \\
+\hline
+{\em columnas} & int Numero de columnas \\
+\hline
+{\em id} & String Identificador de la matriz \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a758ff1586bb7c51424ee4bb6d5053dd0}\label{classmatrices_1_1_matriz_a758ff1586bb7c51424ee4bb6d5053dd0}} 
+\index{matrices.Matriz@{matrices.Matriz}!Matriz@{Matriz}}
+\index{Matriz@{Matriz}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{Matriz()}{Matriz()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily matrices.\+Matriz.\+Matriz (\begin{DoxyParamCaption}\item[{int}]{filas,  }\item[{int}]{columnas,  }\item[{String}]{id,  }\item[{float}]{elementos\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Constructor del objeto \mbox{\hyperlink{classmatrices_1_1_matriz}{Matriz}}. Se utiliza para crear una matriz con valores predeterminados rapidamente. 
+\begin{DoxyParams}{Parameters}
+{\em filas} & int Numero de filas \\
+\hline
+{\em columnas} & int Numero de columnas \\
+\hline
+{\em id} & String Identificador de la matriz \\
+\hline
+{\em elementos} & float\mbox{[}\mbox{]}\mbox{[}\mbox{]} Elementos predeterminados \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a881c6341297e40ed73932cc58533022d}\label{classmatrices_1_1_matriz_a881c6341297e40ed73932cc58533022d}} 
+\index{matrices.Matriz@{matrices.Matriz}!Matriz@{Matriz}}
+\index{Matriz@{Matriz}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{Matriz()}{Matriz()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily matrices.\+Matriz.\+Matriz (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{enummatrices_1_1_matriz_1_1_error_matriz}{Error\+Matriz}}}]{error }\end{DoxyParamCaption})}
+
+Constructor de matriz que solo admite un error. Es para cuando no se puede calcular nada. 
+\begin{DoxyParams}{Parameters}
+{\em error} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a518fb6a205d32d6dccf7c2ff06837ca1}\label{classmatrices_1_1_matriz_a518fb6a205d32d6dccf7c2ff06837ca1}} 
+\index{matrices.Matriz@{matrices.Matriz}!asignarElementos@{asignarElementos}}
+\index{asignarElementos@{asignarElementos}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{asignarElementos()}{asignarElementos()}}
+{\footnotesize\ttfamily void matrices.\+Matriz.\+asignar\+Elementos (\begin{DoxyParamCaption}\item[{float}]{elementos\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]},  }\item[{int}]{max\+Filas,  }\item[{int}]{max\+Columnas }\end{DoxyParamCaption})}
+
+Asigna los elementos de la matriz utilizando un arreglo bidimensional 
+\begin{DoxyParams}{Parameters}
+{\em elementos} & float\mbox{[}\mbox{]}\mbox{[}\mbox{]} Arreglo bidimensional de numeros \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_ae359697fd7912ab58c48dc5314c5fb41}\label{classmatrices_1_1_matriz_ae359697fd7912ab58c48dc5314c5fb41}} 
+\index{matrices.Matriz@{matrices.Matriz}!dimensionesIguales@{dimensionesIguales}}
+\index{dimensionesIguales@{dimensionesIguales}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{dimensionesIguales()}{dimensionesIguales()}}
+{\footnotesize\ttfamily boolean matrices.\+Matriz.\+dimensiones\+Iguales (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmatrices_1_1_matriz}{Matriz}}}]{comparacion }\end{DoxyParamCaption})}
+
+Retorna si las dimensiones de las matrices comparadas son iguales. \begin{DoxyReturn}{Returns}
+boolean Verdadero o Falso a la premisa. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a3fdba4c9395f1eaf3f13baa4f9918efe}\label{classmatrices_1_1_matriz_a3fdba4c9395f1eaf3f13baa4f9918efe}} 
+\index{matrices.Matriz@{matrices.Matriz}!esCuadrada@{esCuadrada}}
+\index{esCuadrada@{esCuadrada}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{esCuadrada()}{esCuadrada()}}
+{\footnotesize\ttfamily boolean matrices.\+Matriz.\+es\+Cuadrada (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retorna si la matriz es cuadrada o no. \begin{DoxyReturn}{Returns}
+boolean Verdadero o Falso a la premisa. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a80cfb5f84ee042b0f275d89fa4482640}\label{classmatrices_1_1_matriz_a80cfb5f84ee042b0f275d89fa4482640}} 
+\index{matrices.Matriz@{matrices.Matriz}!esIgualA@{esIgualA}}
+\index{esIgualA@{esIgualA}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{esIgualA()}{esIgualA()}}
+{\footnotesize\ttfamily boolean matrices.\+Matriz.\+es\+IgualA (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classmatrices_1_1_matriz}{Matriz}}}]{comparacion }\end{DoxyParamCaption})}
+
+Compara todos los elementos de dos matrices para concluir si son iguales o no. 
+\begin{DoxyParams}{Parameters}
+{\em comparacion} & \mbox{\hyperlink{classmatrices_1_1_matriz}{Matriz}} a comparar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean Verdadero o Falso a la premisa. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a0e1f0dff6f8c606d4cf5838e8262db4d}\label{classmatrices_1_1_matriz_a0e1f0dff6f8c606d4cf5838e8262db4d}} 
+\index{matrices.Matriz@{matrices.Matriz}!esMatrizIdentidad@{esMatrizIdentidad}}
+\index{esMatrizIdentidad@{esMatrizIdentidad}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{esMatrizIdentidad()}{esMatrizIdentidad()}}
+{\footnotesize\ttfamily boolean matrices.\+Matriz.\+es\+Matriz\+Identidad (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Devuelve si la matriz es matriz Identidad (Que su diagonal principal esta llena de 1s y el resto es 0.) \begin{DoxyReturn}{Returns}
+boolean Verdadero o Falso a la premisa. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a9d550f551fd34da8f53163a480b1bf86}\label{classmatrices_1_1_matriz_a9d550f551fd34da8f53163a480b1bf86}} 
+\index{matrices.Matriz@{matrices.Matriz}!esVacia@{esVacia}}
+\index{esVacia@{esVacia}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{esVacia()}{esVacia()}}
+{\footnotesize\ttfamily boolean matrices.\+Matriz.\+es\+Vacia (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Devuelve si la matriz esta llena de ceros o no. \begin{DoxyReturn}{Returns}
+boolean Verdadero o Falso a la premisa. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_aa732cf09717f00534825afddc3cfd64e}\label{classmatrices_1_1_matriz_aa732cf09717f00534825afddc3cfd64e}} 
+\index{matrices.Matriz@{matrices.Matriz}!getColumnas@{getColumnas}}
+\index{getColumnas@{getColumnas}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{getColumnas()}{getColumnas()}}
+{\footnotesize\ttfamily int matrices.\+Matriz.\+get\+Columnas (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retorna el numero de columnas de la matriz. \begin{DoxyReturn}{Returns}
+int El numero de columnas de la matriz. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a249de0c272c94292ca403790233cddcc}\label{classmatrices_1_1_matriz_a249de0c272c94292ca403790233cddcc}} 
+\index{matrices.Matriz@{matrices.Matriz}!getElemento@{getElemento}}
+\index{getElemento@{getElemento}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{getElemento()}{getElemento()}}
+{\footnotesize\ttfamily float matrices.\+Matriz.\+get\+Elemento (\begin{DoxyParamCaption}\item[{int}]{fila,  }\item[{int}]{columna }\end{DoxyParamCaption})}
+
+Retorna el valor flotante del elemento de la matriz posicionado en \mbox{[}fila\mbox{]}\mbox{[}columna\mbox{]} 
+\begin{DoxyParams}{Parameters}
+{\em fila} & \\
+\hline
+{\em columna} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a01992d0a51459641a79309da6a103016}\label{classmatrices_1_1_matriz_a01992d0a51459641a79309da6a103016}} 
+\index{matrices.Matriz@{matrices.Matriz}!getElementos@{getElementos}}
+\index{getElementos@{getElementos}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{getElementos()}{getElementos()}}
+{\footnotesize\ttfamily float\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} matrices.\+Matriz.\+get\+Elementos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retorna todos los elementos de la matriz. \begin{DoxyReturn}{Returns}
+float\mbox{[}\mbox{]}\mbox{[}\mbox{]} El arreglo de elementos. Orden \mbox{[}fila\mbox{]}\mbox{[}columna\mbox{]} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_ab9fe624bf088144be1de181a654fcf30}\label{classmatrices_1_1_matriz_ab9fe624bf088144be1de181a654fcf30}} 
+\index{matrices.Matriz@{matrices.Matriz}!getError@{getError}}
+\index{getError@{getError}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{getError()}{getError()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enummatrices_1_1_matriz_1_1_error_matriz}{Error\+Matriz}} matrices.\+Matriz.\+get\+Error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retorna el error asignado a la matriz. \begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{enummatrices_1_1_matriz_1_1_error_matriz}{Error\+Matriz}} Tipo de error de la operacion 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_aa678944990b13f66eb70630e65b3ea2e}\label{classmatrices_1_1_matriz_aa678944990b13f66eb70630e65b3ea2e}} 
+\index{matrices.Matriz@{matrices.Matriz}!getFilas@{getFilas}}
+\index{getFilas@{getFilas}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{getFilas()}{getFilas()}}
+{\footnotesize\ttfamily int matrices.\+Matriz.\+get\+Filas (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retorna el numero de filas de la matriz. \begin{DoxyReturn}{Returns}
+int El numero de filas de la matriz. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a5ca48d7537220f2dd1b13c98581f3025}\label{classmatrices_1_1_matriz_a5ca48d7537220f2dd1b13c98581f3025}} 
+\index{matrices.Matriz@{matrices.Matriz}!getId@{getId}}
+\index{getId@{getId}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily String matrices.\+Matriz.\+get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Retorna el identificador de la matriz. \begin{DoxyReturn}{Returns}
+String El identificador de la matriz. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a62ebd6f852131f6da9f0f1ab041493a3}\label{classmatrices_1_1_matriz_a62ebd6f852131f6da9f0f1ab041493a3}} 
+\index{matrices.Matriz@{matrices.Matriz}!imprimir@{imprimir}}
+\index{imprimir@{imprimir}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{imprimir()}{imprimir()}}
+{\footnotesize\ttfamily void matrices.\+Matriz.\+imprimir (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Imprime la representacion de la matriz al System.\+out \mbox{\Hypertarget{classmatrices_1_1_matriz_a898c34f86460fc48517935d5f7a74836}\label{classmatrices_1_1_matriz_a898c34f86460fc48517935d5f7a74836}} 
+\index{matrices.Matriz@{matrices.Matriz}!mostrarElemento@{mostrarElemento}}
+\index{mostrarElemento@{mostrarElemento}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{mostrarElemento()}{mostrarElemento()}}
+{\footnotesize\ttfamily Array\+List$<$ String $>$ matrices.\+Matriz.\+mostrar\+Elemento (\begin{DoxyParamCaption}\item[{int}]{elemento\+Fila,  }\item[{int}]{elemento\+Columna }\end{DoxyParamCaption})}
+
+Muestra la representacion grafica de un elemento seleccionado en la matriz. Esto es utilizado en la interfaz de edicion de matrices para que el usuario pueda saber cual es el elemento seleccionado actualmente. 
+\begin{DoxyParams}{Parameters}
+{\em elemento\+Fila} & El indice fila del elemento \\
+\hline
+{\em elemento\+Columna} & El indice columna del elemento \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array\+List$<$\+String$>$ La lista de cadenas que se requieren para dibujar la representacion de la matriz, incluyendo la representacion de la seleccion del elemento deseado. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmatrices_1_1_matriz_a5f0b49d72b10e334196d2eb19dd0301d}\label{classmatrices_1_1_matriz_a5f0b49d72b10e334196d2eb19dd0301d}} 
+\index{matrices.Matriz@{matrices.Matriz}!redondearElementos@{redondearElementos}}
+\index{redondearElementos@{redondearElementos}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{redondearElementos()}{redondearElementos()}}
+{\footnotesize\ttfamily void matrices.\+Matriz.\+redondear\+Elementos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Redondea los elementos de la matriz 2 puntos decimales. Es requerido para las pruebas unitarias porque a veces se considera que los resultados no son iguales aunque lo unico que tengan diferente es el octavo numero decimal. \mbox{\Hypertarget{classmatrices_1_1_matriz_ad7968c65a345c4851280b48493f8890a}\label{classmatrices_1_1_matriz_ad7968c65a345c4851280b48493f8890a}} 
+\index{matrices.Matriz@{matrices.Matriz}!setElemento@{setElemento}}
+\index{setElemento@{setElemento}!matrices.Matriz@{matrices.Matriz}}
+\doxysubsubsection{\texorpdfstring{setElemento()}{setElemento()}}
+{\footnotesize\ttfamily void matrices.\+Matriz.\+set\+Elemento (\begin{DoxyParamCaption}\item[{int}]{fila,  }\item[{int}]{columna,  }\item[{float}]{valor }\end{DoxyParamCaption})}
+
+Asigna un valor flotante al elemento de la matriz localizado en la posicion \mbox{[}fila\mbox{]}\mbox{[}columna\mbox{]} 
+\begin{DoxyParams}{Parameters}
+{\em fila} & \\
+\hline
+{\em columna} & \\
+\hline
+{\em valor} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/a/\+Documents/\+Git\+Hub/\+Calculadora\+Matrices/src/main/java/matrices/Matriz.\+java\end{DoxyCompactItemize}
