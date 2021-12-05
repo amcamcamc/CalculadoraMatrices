@@ -1,14 +1,22 @@
 package interfaz;
+import matrices.*;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import matrices.OperadorMatrices;
-import matrices.Matriz;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
+/**
+ * Vista de la interfaz grafica principal del programa
+ * @author amaury
+ */
 public class Menu extends javax.swing.JFrame {
     
+    /**
+     * Todos los objetos Matriz disponibles en el programa.
+     * Estan por defecto como matrices de 3x3 vacias.
+     * Solo hay identificadores hasta la letra H. No se pueden utilizar las letras
+     * R, T. Mas informacion en la clase Matriz.
+     */
     private Matriz matrizA = new Matriz(3,3,"A");
     private Matriz matrizB = new Matriz(3,3,"B");
     private Matriz matrizC = new Matriz(3,3,"C");
@@ -18,15 +26,29 @@ public class Menu extends javax.swing.JFrame {
     private Matriz matrizG = new Matriz(3,3,"G");
     private Matriz matrizH = new Matriz(3,3,"H");
     
+    /**
+     * Vista del menu de la edicion de matrices.
+     */
     private MenuMatrices menuEditarMatrices;
+    /**
+     * Clase que opera con las matrices.
+     */
     private OperadorMatrices manipuladorMatrices = new OperadorMatrices();
     
+    /**
+     * El tipo de resultado es importante para saber si lo que se imprime
+     * es una matriz o un flotante.
+     */
     enum TipoResultado
     {
         Matriz,
         Numero,
     }
     
+    /**
+     * El nombre del procedimiento u operacion a realizar con la matriz o matrices
+     * seleccionadas.
+     */
     enum Procedimiento
     {
         SumaMatrices,
@@ -39,7 +61,13 @@ public class Menu extends javax.swing.JFrame {
         TranspuestaMatriz,
     }
     
+    /**
+     * El resultado esperado de la operacion. Esto cambia segun al enum Procedimiento
+     */
     private TipoResultado resultadoEsperado = TipoResultado.Matriz;
+    /**
+     * El procedimiento seleccionado actual
+     */
     private Procedimiento procedimientoSeleccionado = Procedimiento.SumaMatrices;
     
     /**
@@ -264,6 +292,11 @@ public class Menu extends javax.swing.JFrame {
         });
     }
     
+    /**
+     * Dependiendo del procedimiento u operacion seleccionada, se ocultan
+     * o se muestran los argumentos para que el usuario no se confunda de
+     * cuales argumentos son los que importan.
+     */
     private void mostrarArgumentosRelevantes()
     {
         switch(procedimientoSeleccionado)
@@ -343,6 +376,12 @@ public class Menu extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Obtiene el objeto Matriz seleccionado sacado del selector JComboBox de
+     * la interfaz grafica
+     * @param seleccion JComboBox Selector de matriz
+     * @return Matriz El objeto matriz correspondiente a la seleccion
+     */
     private Matriz obtenerMatrizDeSeleccion(javax.swing.JComboBox<String> seleccion)
     {
         //System.out.println(seleccion.getSelectedItem().toString());
@@ -369,6 +408,11 @@ public class Menu extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Obtiene el procedimiento seleccionado a partir del selector de procedimiento
+     * que se encuentra en la interfaz grafica
+     * @param seleccion JComboBox Selector de procedimiento
+     */
     private void obtenerProcedimientoSeleccionado(javax.swing.JComboBox<String> seleccion)
     {
         switch(seleccion.getSelectedItem().toString())
@@ -410,7 +454,13 @@ public class Menu extends javax.swing.JFrame {
         }
     }
     
-    private Object realizarProcedimiento(Object[] parametros)
+    /**
+     * Realiza el procedimiento seleccionado, pasando como parametros los argumentos
+     * deseados. Devuelve la respuesta en forma de Matriz, aunque sea un solo numero.
+     * @param parametros Object[] Aqui se puede introducir objetos Matriz o flotantes
+     * @return Matriz Respuesta obtenida del procedimiento.
+     */
+    private Matriz realizarProcedimiento(Object[] parametros)
     {
         //System.out.println(seleccion.getSelectedItem().toString());
         switch(procedimientoSeleccionado)
@@ -436,6 +486,10 @@ public class Menu extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Guarda los cambios realizados en la interfaz de edicion de matriz
+     * en el objeto matriz que se habia seleccionado para editar.
+     */
     public void guardarCambiosMatriz()
     {
         Matriz guardado = menuEditarMatrices.getMatriz();
@@ -470,6 +524,10 @@ public class Menu extends javax.swing.JFrame {
         previsualizarMatriz(obtenerMatrizDeSeleccion(selectorMatriz));
     }
     
+    /**
+     * Obtiene la matriz seleccionada a editar y la envia como parametro a
+     * la vista del menu editor de matrices, y muestra el menu.
+     */
     private void presionarBoton_Editar()
     {
         Matriz matrizSeleccionada = obtenerMatrizDeSeleccion(selectorMatriz);
@@ -479,6 +537,11 @@ public class Menu extends javax.swing.JFrame {
         menuEditarMatrices.setVisible(true);
     }
     
+    /**
+     * Manda a llamar la operacion deseada dependiendo del procedimiento 
+     * seleccionado. Al obtener una respuesta, la envia a que se imprima con
+     * los otros metodos. Si hay un error, lo envia a procesar errores.
+     */
     private void presionarBoton_Calcular()
     {
         Matriz matrizSeleccionada1 = obtenerMatrizDeSeleccion(selectorMatriz1);
@@ -491,18 +554,28 @@ public class Menu extends javax.swing.JFrame {
         
         obtenerProcedimientoSeleccionado(selectorProcedimiento);
         
+        Matriz resultado = realizarProcedimiento(parametros);
+        
+        if (resultado.getError() != Matriz.ErrorMatriz.Ninguno)
+        {
+            mostrarResultado_Error(resultado.getError());
+            return;
+        }
+        
         if (resultadoEsperado == TipoResultado.Matriz)
         {
-            Matriz resultado = (Matriz)realizarProcedimiento(parametros);
             mostrarResultado_Matriz(resultado);
         }
         else if (resultadoEsperado == TipoResultado.Numero)
         {
-            float resultado = (float)realizarProcedimiento(parametros);
-            mostrarResultado_Numero(resultado);
+            mostrarResultado_Numero(resultado.getElemento(0, 0));
         }
     }
     
+    /**
+     * Previsualiza la matriz a editar en la interfaz grafica.
+     * @param matriz Matriz La matriz a mostrar en la interfaz grafica.
+     */
     private void previsualizarMatriz(Matriz matriz)
     {
         visualizadorMatriz_E.setText("");
@@ -513,6 +586,10 @@ public class Menu extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Muestra el resultado final de la operacion realizada
+     * @param matriz Matriz La matriz obtenida del resultado.
+     */
     private void mostrarResultado_Matriz(Matriz matriz)
     {
         visualizadorMatriz_R.setText("");
@@ -523,9 +600,56 @@ public class Menu extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Muestra el resultado final de la operacion realizada.
+     * @param numero float El numero obtenido del resultado.
+     */
     private void mostrarResultado_Numero(float numero)
     {
         visualizadorMatriz_R.setText(""+numero);
+    }
+    
+    /**
+     * Si se recibe una matriz con error marcado al hacer alguna operacion,
+     * se alimenta a esta funcion para que muestre un mensaje de dialogo al
+     * usuario sobre el error.
+     * @param error ErrorMatriz Tipo de error al hacer la operacion
+     */
+    private void mostrarResultado_Error(Matriz.ErrorMatriz error)
+    {
+        String mensajeError = "";
+        switch(error)
+        {
+            case NoCuadrada:
+                mensajeError = "La matriz introducida no es cuadrada.\n"
+                              +"Por favor, introduzca una que si lo sea";
+                break;
+            case Singular:
+                mensajeError = "La matriz introducida es singular.\n"
+                              +"Por favor, introduzca una que no lo sea";
+                break;
+            case MetodoIncompatible:
+                mensajeError = "La matriz introducida es incompatible con el metodo.\n"
+                              +"Por favor, introduzca una que si lo sea.\n"
+                              +"(Los metodos que solucionan sistemas no aceptan matrices < 2x3)";
+                break;
+            case DimensionesIncompatibles:
+                mensajeError = "Las dimensiones de las matrices introducidas no son correctas.\n"
+                              +"Por favor, utilice matrices con dimensiones compatibles";
+                break;
+            case ErrorMatematico:
+                mensajeError = "Hubo un error matematico.\n"
+                              +"Por favor, verifique los valores introducidos,\n"
+                              +"introduzca una matriz diferente o intente con otro metodo";
+                break;
+            default:
+                mensajeError = "Error desconocido.\n"
+                              +"Por favor, verifique los valores introducidos,\n"
+                              +"introduzca una matriz diferente o intente con otro metodo";
+                break;
+        }
+        
+        JOptionPane.showMessageDialog(null, mensajeError);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

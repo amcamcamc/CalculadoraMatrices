@@ -3,7 +3,7 @@ package matrices;
 import java.util.ArrayList;
 
 /**
- * Clase Matriz. Aqui se hace la abstraccion de lo que es un objeto matriz
+ * Clase Matriz. Aqui se hace la abstraccion de lo que es un objeto Matriz
  * y se declaran sus propiedades que van a ser utilizadas para hacer operaciones
  * con ellas
  * @author amaury
@@ -22,6 +22,24 @@ public class Matriz
      * Los elementos de una matriz. El orden del arreglo es [filas][columnas]
      */
     private float[][] elementos;
+    
+    /**
+     * Enum para los errores de matriz.
+     */
+    public enum ErrorMatriz
+    {
+        NoCuadrada,
+        Singular,
+        MetodoIncompatible,
+        DimensionesIncompatibles,
+        ErrorMatematico,
+        Ninguno,
+    }
+    
+    /**
+     * Se modifica y se lee para mostrarle al usuario que paso con la operacion
+     */
+    private ErrorMatriz error = ErrorMatriz.Ninguno;
     
     /**
      * Constructor del objeto Matriz. Se utiliza para crear una matriz vacia
@@ -53,6 +71,22 @@ public class Matriz
         this.elementos = elementos;
         this.id = id;
     }
+    
+    /**
+     * Constructor de matriz que solo admite un error. Es para cuando no se
+     * puede calcular nada.
+     * @param error 
+     */
+    public Matriz(ErrorMatriz error)
+    {
+        this.error = error;
+    }
+    
+    /**
+     * Retorna el error asignado a la matriz.
+     * @return ErrorMatriz Tipo de error de la operacion
+     */
+    public ErrorMatriz getError() { return error; }
     
     /**
      * Asigna un valor flotante al elemento de la matriz localizado en la
@@ -203,6 +237,49 @@ public class Matriz
     }
     
     /**
+     * Devuelve si la matriz esta llena de ceros o no.
+     * @return boolean Verdadero o Falso a la premisa.
+     */
+    public boolean esVacia()
+    {
+        for (int i = 0; i < this.getFilas(); i++)
+        {
+            for (int j = 0; j < this.getColumnas(); j++)
+            {
+                if (elementos[i][j] != 0)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Devuelve si la matriz es matriz Identidad (Que su diagonal principal
+     * esta llena de 1s y el resto es 0.)
+     * @return boolean Verdadero o Falso a la premisa.
+     */
+    public boolean esMatrizIdentidad()
+    {
+        for (int i = 0; i < this.getFilas(); i++)
+        {
+            for (int j = 0; j < this.getColumnas(); j++)
+            {
+                if (elementos[i][j] != 0 && j != i)
+                {
+                    return false;
+                }
+                if (elementos[i][i] != 1)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    /**
      * Asigna los elementos de la matriz utilizando un arreglo bidimensional
      * @param elementos float[][] Arreglo bidimensional de numeros
      */
@@ -218,7 +295,10 @@ public class Matriz
     }
     
     /**
-     * Redondea los elementos de la matriz 2 puntos decimales
+     * Redondea los elementos de la matriz 2 puntos decimales. Es requerido
+     * para las pruebas unitarias porque a veces se considera que los resultados
+     * no son iguales aunque lo unico que tengan diferente es el octavo numero
+     * decimal.
      */
     public void redondearElementos()
     {

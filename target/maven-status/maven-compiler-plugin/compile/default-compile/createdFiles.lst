@@ -19,3 +19,4 @@ interfaz\MenuMatrices$3.class
 interfaz\Menu$4.class
 matrices\OperadorMatrices.class
 interfaz\Menu.class
+matrices\Matriz$ErrorMatriz.class

@@ -15,8 +15,13 @@ public class OperadorMatrices
      */
     public Matriz sumaEntreMatrices(Matriz A, Matriz B)
     {
+        try {
+        
         //Las matrices deben tener la misma dimension para poder ser sumadas
-        if (!A.dimensionesIguales(B)) { return null; }
+        if (!A.dimensionesIguales(B))
+        {
+            return new Matriz(Matriz.ErrorMatriz.DimensionesIncompatibles);
+        }
         Matriz resultado = new Matriz(A.getFilas(), A.getColumnas(), "R");
         
         for (int i = 0; i < A.getFilas(); ++i) 
@@ -28,6 +33,8 @@ public class OperadorMatrices
         }
         
         return resultado;
+        
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
     }
     
     /**
@@ -39,6 +46,8 @@ public class OperadorMatrices
      */
     public Matriz multiplicacionPorEscalar(Matriz A, float escalar)
     {
+        try {
+            
         Matriz resultado = new Matriz(A.getFilas(), A.getColumnas(), "R");
         
         for (int i = 0; i < A.getFilas(); ++i) 
@@ -50,6 +59,8 @@ public class OperadorMatrices
         }
         
         return resultado;
+        
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
     }
     
     /**
@@ -62,8 +73,13 @@ public class OperadorMatrices
      */
     public Matriz productoEntreMatrices(Matriz A, Matriz B) 
     {
+        try {
+            
         //El numero de columnas de A debe ser el mismo numero de filas de B
-        if (!(A.getColumnas() == B.getFilas())) { return null; }
+        if (!(A.getColumnas() == B.getFilas()))
+        {
+            return new Matriz(Matriz.ErrorMatriz.DimensionesIncompatibles);
+        }
         
         Matriz resultado = new Matriz(A.getFilas(), B.getColumnas(), "R");
         
@@ -81,6 +97,8 @@ public class OperadorMatrices
         }
         
         return resultado;
+        
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
     }
     
     /**
@@ -91,14 +109,24 @@ public class OperadorMatrices
      */
     public Matriz calcularInversa_GJ(Matriz A)
     {
+        try {
+        
+        if (!A.esCuadrada())
+        {
+            return new Matriz(Matriz.ErrorMatriz.NoCuadrada);
+        }
+        
         int tamano = A.getFilas();
         Matriz temporal = new Matriz(tamano,tamano*2,"T");
         temporal.asignarElementos(A.getElementos(), tamano, tamano);
         
-        float determinante = calcularDeterminante(A);
+        float determinante = calcularDeterminante(A).getElemento(0, 0);
         
-        //La matriz debe ser cuadrada y no singular
-        if (determinante == 0) { return null; }
+        //La matriz tampoco debe ser singular
+        if (determinante == 0)
+        {
+            return new Matriz(Matriz.ErrorMatriz.Singular);
+        }
        
         //Aumentar la matriz A con la matriz de identidad
         for (int i = 0; i < tamano; i++)
@@ -114,7 +142,11 @@ public class OperadorMatrices
         //Aplicar eliminacion de Gauss-Jordan a la matriz aumentada
         for (int i = 0; i < tamano; i++)
         {
-            if (temporal.getElemento(i, i) == 0) { return null; }
+            //La diagonal principal no puede tener 0s
+            if (temporal.getElemento(i, i) == 0)
+            {
+                return new Matriz(Matriz.ErrorMatriz.ErrorMatematico);
+            }
             
             for (int j = 0; j < tamano; j++)
             {
@@ -150,6 +182,8 @@ public class OperadorMatrices
         }
         
         return resultado;
+        
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
     }
     
     /**
@@ -161,11 +195,25 @@ public class OperadorMatrices
      */
     public Matriz solucionarSistema_GJ(Matriz A)
     {
+        try {
+            
         double epsilon = 1e-10; //margen de error para considerar la matriz singular
         
         int columnaRespuesta = A.getColumnas()-1;
         int numVariables = A.getFilas();
         Matriz resultado = new Matriz(1,numVariables,"R");
+        
+        //Con este metodo solo se pueden solucionar matrices con dos variables o mas
+        if (A.getColumnas() <= 2)
+        {
+            return new Matriz(Matriz.ErrorMatriz.MetodoIncompatible);
+        }
+        
+        //No se puede aplicar GJ a la matriz identidad
+        if (A.esMatrizIdentidad())
+        {
+            return new Matriz(Matriz.ErrorMatriz.MetodoIncompatible);
+        }
         
         //Copiamos la Matriz A a otra matriz sin la columna respuesta b
         Matriz temporal = new Matriz(A.getFilas(), A.getColumnas()-1, "T");
@@ -210,7 +258,7 @@ public class OperadorMatrices
             //La matriz no puede ser singular
             if (Math.abs(Asinb[pivote][pivote]) <= epsilon)
             {
-                return null;
+                return new Matriz(Matriz.ErrorMatriz.Singular);
             }
 
             //Pivote de A y b
@@ -244,6 +292,8 @@ public class OperadorMatrices
         }
         
         return resultado;
+        
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
     }
     
     /**
@@ -255,10 +305,30 @@ public class OperadorMatrices
      */
     public Matriz solucionarSistema_Cramer(Matriz A)
     {   
+        try {
+            
         int columnaRespuesta = A.getColumnas()-1;
         int numVariables = A.getFilas();
         Matriz resultado = new Matriz(1,numVariables,"R");
         Matriz temporal = new Matriz(A.getFilas(), A.getColumnas()-1, "T");
+        
+        //Con este metodo solo se pueden solucionar matrices con dos variables o mas
+        if (A.getColumnas() <= 2)
+        {
+            return new Matriz(Matriz.ErrorMatriz.MetodoIncompatible);
+        }
+        
+        //La matriz tampoco debe ser vacia
+        if (A.esVacia())
+        {
+            return new Matriz(Matriz.ErrorMatriz.MetodoIncompatible);
+        }
+        
+        //No se puede aplicar Cramer a la matriz identidad
+        if (A.esMatrizIdentidad())
+        {
+            return new Matriz(Matriz.ErrorMatriz.MetodoIncompatible);
+        }
         
         //Introducir dentro de la matriz temporal el sistema de ecuaciones sin 
         //las soluciones.        
@@ -277,10 +347,10 @@ public class OperadorMatrices
                 {
                     for (int var = 0; var < numVariables; var++) //La variable fila actual (x,y,z)
                     {
-                        System.out.println("R:"+filaR+" columna:"+col+" fila:"+fil+" var: "+var);
+                        //System.out.println("R:"+filaR+" columna:"+col+" fila:"+fil+" var: "+var);
                         if (var == fil && col == filaR)
                         {
-                            System.out.println("fila:"+fil+" var: "+var+" valor:"+A.getElemento(var, columnaRespuesta));
+                            //System.out.println("fila:"+fil+" var: "+var+" valor:"+A.getElemento(var, columnaRespuesta));
                             variableDet.setElemento(fil, col, A.getElemento(var, columnaRespuesta));
                             break;
                         }
@@ -291,10 +361,12 @@ public class OperadorMatrices
             //superior de la formula, la cual solo tiene sobreescritas las
             //variables de respuesta en la columna correspondiente al numero
             //de variable columna a obtener
-            float resultadoFormula = calcularDeterminante(variableDet)/calcularDeterminante(temporal);
+            float resultadoFormula = calcularDeterminante(variableDet).getElemento(0, 0)/calcularDeterminante(temporal).getElemento(0, 0);
             resultado.setElemento(0, filaR, resultadoFormula);
         }
         return resultado;
+        
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
     }
     
     /**
@@ -302,12 +374,18 @@ public class OperadorMatrices
      * @param A Matriz A
      * @return int determinante de la matriz A.
      */
-    public float calcularDeterminante(Matriz A)
+    public Matriz calcularDeterminante(Matriz A)
     {
+        try {
+        
         float resultado = 0;
+        Matriz retorno = new Matriz(1,1,"R");
         
         //Solo se puede calcular el determinante de matrices cuadradas
-        if (!A.esCuadrada()) { return 0; }
+        if (!A.esCuadrada())
+        {
+            return new Matriz(Matriz.ErrorMatriz.NoCuadrada);
+        }
         
         int tamano = A.getFilas();
         if(tamano > 2) //Si las dimensiones son mayores que 2x2
@@ -328,21 +406,26 @@ public class OperadorMatrices
                     }
                 }
                 //El determinante de la matriz tamano-1 x tamano-1
-                float determinantePequeno = A.getElemento(0,i)*calcularDeterminante(matrizPequena);
+                float determinantePequeno = A.getElemento(0,i)*calcularDeterminante(matrizPequena).getElemento(0, 0);
                 //El signo debe ser cambiado al intercambiar 2 columnas
                 resultado += Math.pow(-1,i)*determinantePequeno;
             }
-            return resultado;
+            retorno.setElemento(0, 0, resultado);
+            return retorno;
         }
         else if(A.getFilas() == 2) //Si las dimensiones son de 2x2
         {
             resultado = ((A.getElemento(0,0))*(A.getElemento(1,1))-(A.getElemento(0,1))*(A.getElemento(1,0)));
-            return resultado;
+            retorno.setElemento(0, 0, resultado);
+            return retorno;
         }
         else 
         {
-            return A.getElemento(0,0); //El determinante de una matriz 1x1 es el unico elemento
+            retorno.setElemento(0, 0, A.getElemento(0, 0));
+            return retorno; //El determinante de una matriz 1x1 es el unico elemento
         }
+        
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
     }
     
     /**
@@ -352,6 +435,8 @@ public class OperadorMatrices
      */
     public Matriz calcularTranspuesta(Matriz A)
     {
+        try {
+            
         Matriz resultado = new Matriz(A.getColumnas(), A.getFilas(), "R");
         
         for (int i = 0; i < A.getFilas(); i++)
@@ -363,5 +448,7 @@ public class OperadorMatrices
         }
         
         return resultado;
+        
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
     }
 }

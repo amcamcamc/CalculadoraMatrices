@@ -8,8 +8,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author a
+ * Pruebas JUnit de la clase OperadorMatrices
+ * @author amaury
  */
 public class OperadorMatricesTest {
     
@@ -55,13 +55,24 @@ public class OperadorMatricesTest {
         Matriz A = new Matriz(2,3,"A",matA);
         Matriz B = new Matriz(2,3,"B",matB);
         
+        System.out.println("Operacion:");
+        A.imprimir();
+        System.out.println("SUMA");
+        B.imprimir();
+        
         Matriz expResult = new Matriz(2,3,"R",matR);
         Matriz result = instance.sumaEntreMatrices(A, B);
+        
+        System.out.println("Resultado esperado:");
+        expResult.imprimir();
+        System.out.println("Resultado:");
+        result.imprimir();
         
         boolean igualdadResultado = result.esIgualA(expResult);
         assertEquals(true, igualdadResultado);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
+        System.out.println("==============================");
     }
 
     /**
@@ -81,13 +92,24 @@ public class OperadorMatricesTest {
         Matriz A = new Matriz(2,3,"A",matA);
         float escalar = -5;
         
+        System.out.println("Operacion:");
+        A.imprimir();
+        System.out.println("MULTIPLICA");
+        System.out.println(escalar);
+        
         Matriz expResult = new Matriz(2,3,"R",matR);
         Matriz result = instance.multiplicacionPorEscalar(A, escalar);
+        
+        System.out.println("Resultado esperado:");
+        expResult.imprimir();
+        System.out.println("Resultado:");
+        result.imprimir();
         
         boolean igualdadResultado = result.esIgualA(expResult);
         assertEquals(true, igualdadResultado);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
+        System.out.println("==============================");
     }
 
     /**
@@ -112,13 +134,24 @@ public class OperadorMatricesTest {
         Matriz A = new Matriz(2,3,"A",matA);
         Matriz B = new Matriz(3,2,"B",matB);
         
+        System.out.println("Operacion:");
+        A.imprimir();
+        System.out.println("MULTIPLICA");
+        B.imprimir();
+        
         Matriz expResult = new Matriz(2,2,"R",matR);
         Matriz result = instance.productoEntreMatrices(A, B);
+        
+        System.out.println("Resultado esperado:");
+        expResult.imprimir();
+        System.out.println("Resultado:");
+        result.imprimir();
         
         boolean igualdadResultado = result.esIgualA(expResult);
         assertEquals(true, igualdadResultado);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
+        System.out.println("==============================");
     }
 
     /**
@@ -139,15 +172,24 @@ public class OperadorMatricesTest {
                          };
         Matriz A = new Matriz(3,3,"A",matA);
         
+        System.out.println("Matriz:");
+        A.imprimir();
+        
         Matriz expResult = new Matriz(3,3,"R",matR);
         expResult.redondearElementos();
         Matriz result = instance.calcularInversa_GJ(A);
         result.redondearElementos();
         
+        System.out.println("Resultado esperado:");
+        expResult.imprimir();
+        System.out.println("Resultado:");
+        result.imprimir();
+        
         boolean igualdadResultado = result.esIgualA(expResult);
         assertEquals(true, igualdadResultado);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
+        System.out.println("==============================");
     }
 
     /**
@@ -166,15 +208,24 @@ public class OperadorMatricesTest {
                          };
         Matriz A = new Matriz(3,4,"A",matA);
         
+        System.out.println("Matriz:");
+        A.imprimir();
+        
         Matriz expResult = new Matriz(1,3,"R",matR);
         expResult.redondearElementos();
         Matriz result = instance.solucionarSistema_GJ(A);
         result.redondearElementos();
         
+        System.out.println("Resultado esperado:");
+        expResult.imprimir();
+        System.out.println("Resultado:");
+        result.imprimir();
+        
         boolean igualdadResultado = result.esIgualA(expResult);
         assertEquals(true, igualdadResultado);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
+        System.out.println("==============================");;
     }
 
     /**
@@ -193,15 +244,24 @@ public class OperadorMatricesTest {
                          };
         Matriz A = new Matriz(3,4,"A",matA);
         
+        System.out.println("Matriz:");
+        A.imprimir();
+        
         Matriz expResult = new Matriz(1,3,"R",matR);
         expResult.redondearElementos();
         Matriz result = instance.solucionarSistema_Cramer(A);
         result.redondearElementos();
         
+        System.out.println("Resultado esperado:");
+        expResult.imprimir();
+        System.out.println("Resultado:");
+        result.imprimir();
+        
         boolean igualdadResultado = result.esIgualA(expResult);
         assertEquals(true, igualdadResultado);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
+        System.out.println("==============================");
     }
 
     /**
@@ -218,11 +278,21 @@ public class OperadorMatricesTest {
                          };
         Matriz A = new Matriz(4,4,"A",matA);
         
+        System.out.println("Matriz:");
+        A.imprimir();
+        
         float expResult = 140F;
-        float result = instance.calcularDeterminante(A);
+        float result = instance.calcularDeterminante(A).getElemento(0, 0);
+        
+        System.out.println("Resultado esperado:");
+        System.out.println(expResult);
+        System.out.println("Resultado:");
+        System.out.println(result);
+        
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
+        System.out.println("==============================");
     }
 
     /**
@@ -243,13 +313,22 @@ public class OperadorMatricesTest {
                          };
         Matriz A = new Matriz(3,3,"A",matA);
         
+        System.out.println("Matriz:");
+        A.imprimir();
+        
         Matriz expResult = new Matriz(3,3,"R",matR);
         Matriz result = instance.calcularTranspuesta(A);
+        
+        System.out.println("Resultado esperado:");
+        expResult.imprimir();
+        System.out.println("Resultado:");
+        result.imprimir();
         
         boolean igualdadResultado = result.esIgualA(expResult);
         assertEquals(true, igualdadResultado);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
+        System.out.println("==============================");
     }
     
 }

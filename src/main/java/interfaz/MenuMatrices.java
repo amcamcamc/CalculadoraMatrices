@@ -3,17 +3,38 @@ package interfaz;
 import matrices.Matriz;
 import java.util.ArrayList;
 
+/**
+ * Vista de la interfaz grafica del menu editor de matrices del programa
+ * @author amaury
+ */
 public class MenuMatrices extends javax.swing.JFrame {
 
+    /**
+     * Objeto Matriz que esta siendo editado
+     */
     private Matriz matrizEditada;
+    /**
+     * La dimension de numero de filas de la matriz editada actual
+     */
     private int dimensionFilas;
+    /**
+     * La dimension de numero de columnas de la matriz editada actual
+     */
     private int dimensionColumnas;
+    /**
+     * El numero de fila actual seleccionado
+     */
     private int filaActual;
+    /**
+     * El numero de columna actual seleccionado
+     */
     private int columnaActual;
     private Menu menuCorrespondiente;
     
     /**
      * Creates new form MenuMatrices
+     * @param matrizAEditar Matriz objeto matriz a editar
+     * @param menu Menu el objeto de la vista menu de donde se crea esta vista.
      */
     public MenuMatrices(Matriz matrizAEditar, Menu menu) {
         initComponents();
@@ -217,12 +238,20 @@ public class MenuMatrices extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Llama a guardar los cambios y cierra la ventana del editor
+     * @param evt 
+     */
     private void aplicarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarBotonActionPerformed
         // TODO add your handling code here:
         menuCorrespondiente.guardarCambiosMatriz();
         this.dispose();
     }//GEN-LAST:event_aplicarBotonActionPerformed
 
+    /**
+     * Mueve la seleccion 2D una posicion hacia arriba
+     * @param evt 
+     */
     private void arribaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arribaBotonActionPerformed
         // TODO add your handling code here:
         if (filaActual > 0)
@@ -232,6 +261,10 @@ public class MenuMatrices extends javax.swing.JFrame {
         actualizarMatriz();
     }//GEN-LAST:event_arribaBotonActionPerformed
 
+    /**
+     * Mueve la seleccion 2D una posicion hacia abajo
+     * @param evt 
+     */
     private void abajoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abajoBotonActionPerformed
         // TODO add your handling code here:
         if (filaActual < matrizEditada.getFilas()-1)
@@ -241,6 +274,10 @@ public class MenuMatrices extends javax.swing.JFrame {
         actualizarMatriz();
     }//GEN-LAST:event_abajoBotonActionPerformed
 
+    /**
+     * Mueve la seleccion 2D una posicion hacia la derecha
+     * @param evt 
+     */
     private void derechaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_derechaBotonActionPerformed
         // TODO add your handling code here:
         if (columnaActual < matrizEditada.getColumnas()-1)
@@ -250,6 +287,10 @@ public class MenuMatrices extends javax.swing.JFrame {
         actualizarMatriz();
     }//GEN-LAST:event_derechaBotonActionPerformed
 
+    /**
+     * Mueve la seleccion 2D una posicion hacia la izquierda
+     * @param evt 
+     */
     private void izquierdaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_izquierdaBotonActionPerformed
         // TODO add your handling code here:
         if (columnaActual > 0)
@@ -259,12 +300,22 @@ public class MenuMatrices extends javax.swing.JFrame {
         actualizarMatriz();
     }//GEN-LAST:event_izquierdaBotonActionPerformed
 
+    /**
+     * Actualiza el valor de la seleccion 2D de la matriz
+     * @param evt 
+     */
     private void seleccionBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionBotonActionPerformed
         // TODO add your handling code here:
         matrizEditada.setElemento(filaActual, columnaActual, (float)selectorValor.getValue());
         actualizarMatriz();
     }//GEN-LAST:event_seleccionBotonActionPerformed
 
+    /**
+     * Actualiza la visualizacion 2D de la matriz.
+     * Esto sucede de manera automatica cuando se mueven las flechas, pero 
+     * es para que el usuario no se confunda al hacer cambios de dimensiones
+     * @param evt 
+     */
     private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
         // TODO add your handling code here:
         actualizarMatriz();
@@ -306,6 +357,10 @@ public class MenuMatrices extends javax.swing.JFrame {
         });
     }
     
+    /**
+     * Carga la visualizacion 2D de la matriz a editer
+     * @param matriz Matriz La matriz a editar
+     */
     private void cargarMatriz(Matriz matriz)
     {
         matrizEditada = matriz;
@@ -327,6 +382,9 @@ public class MenuMatrices extends javax.swing.JFrame {
         mostrarMatriz(matrizEditada);
     }
     
+    /**
+     * Actualiza la visualizacion de la matriz siendo editada
+     */
     private void actualizarMatriz()
     {   
         mostrarMatriz(matrizEditada);
@@ -346,6 +404,11 @@ public class MenuMatrices extends javax.swing.JFrame {
         labelColumna.setText("Columna actual: "+columnaActual);
     }
     
+    /**
+     * Muestra la visualizacion de la matriz junto con el selector visual de valores
+     * para que el usuario se pueda orientar.
+     * @param matriz Matriz La matriz editada actualmente
+     */
     private void mostrarMatriz(Matriz matriz)
     {
         visualizadorMatriz.setText("");
@@ -356,6 +419,11 @@ public class MenuMatrices extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Retorna la matriz editada actualmente. Util para guardar la matriz editada
+     * en otros objeto Matriz.
+     * @return 
+     */
     public Matriz getMatriz()
     {
         return matrizEditada;
