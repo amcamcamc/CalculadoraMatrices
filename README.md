@@ -7,7 +7,7 @@
 * (4) Inversa de una matriz por Gauss-Jordan [X]
 * (5) Solucion de un sistema de ecuaciones por Gauss-Jordan [ ]
 * (6) Determinante de una matriz [X]
-* (7) Solucion de un sistema de ecuaciones por Cramer [ ]
+* (7) Solucion de un sistema de ecuaciones por Cramer [X]
 ---
 ### Documentos
 * (1) Documento integrador

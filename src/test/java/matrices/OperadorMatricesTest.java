@@ -175,10 +175,28 @@ public class OperadorMatricesTest {
     @Test
     public void testSolucionarSistema_Cramer() {
         System.out.println("solucionarSistema_Cramer");
-        Matriz A = null;
-        Matriz expResult = null;
+        float[][] matA = {
+                            {3,2,1,1},
+                            {2,0,1,2},
+                            {-1,1,2,4},
+                         };
+        float[][] matR = {
+                            {-1/11F,-5/11F,24/11F},
+                         };
+        Matriz A = new Matriz(3,4,"A",matA);
+        
+        Matriz expResult = new Matriz(1,3,"R",matR);
+        expResult.redondearElementos();
         Matriz result = instance.solucionarSistema_Cramer(A);
-        assertEquals(expResult, result);
+        result.redondearElementos();
+        
+        System.out.println("exp:");
+        expResult.imprimir();
+        System.out.println("act:");
+        result.imprimir();
+        
+        boolean igualdadResultado = result.esIgualA(expResult);
+        assertEquals(true, igualdadResultado);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }

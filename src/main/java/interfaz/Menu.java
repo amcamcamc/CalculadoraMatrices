@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 
 public class Menu extends javax.swing.JFrame {
     
-    private Matriz matrizA = new Matriz(3,3,"A");
+    private Matriz matrizA = new Matriz(2,3,"A");
     private Matriz matrizB = new Matriz(3,3,"B");
     private Matriz matrizC = new Matriz(3,3,"C");
     private Matriz matrizD = new Matriz(3,3,"D");
@@ -18,11 +18,15 @@ public class Menu extends javax.swing.JFrame {
     private Matriz matrizG = new Matriz(3,3,"G");
     private Matriz matrizH = new Matriz(3,3,"H");
     
-    float[][] matA = {
+    /*float[][] matA = {
                         {1,-6,2},
                         {2,-2,-1},
                         {1,-3,-5},
-                     };
+                     };*/
+     float[][] matA = {
+                            {3,-2,1},
+                            {1,5,3},
+                      };
     
     private MenuMatrices menuEditarMatrices;
     private OperadorMatrices manipuladorMatrices = new OperadorMatrices();
@@ -53,7 +57,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
-        matrizA.asignarElementos(matA, 3,3);
+        matrizA.asignarElementos(matA, 2,3);
         
         previsualizarMatriz(obtenerMatrizDeSeleccion(selectorMatriz));
         obtenerProcedimientoSeleccionado(selectorProcedimiento);

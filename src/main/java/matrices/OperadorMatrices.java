@@ -82,8 +82,8 @@ public class OperadorMatrices
     }
     
     /**
-     * Dada una matriz A cuadrada no singular, retorna la inversa de la matriz
-     * A calculada con el metodo de Gauss-Jordan.
+     * Dada una matriz A cuadrada no singular, retorna la inversa de la matriz A
+     * calculada con el metodo de Gauss-Jordan.
      * @param A Matriz A
      * @return Matriz A inversa.
      */
@@ -102,26 +102,15 @@ public class OperadorMatrices
             for (int j = 0; j < tamano; j++)
             {
                 System.out.println(i+", "+j);
-                if (i == j)
-                {
-                    temporal.setElemento(i, j+tamano, 1);
-                }
-                else
-                {
-                    temporal.setElemento(i, j+tamano, 0);
-                }
+                if (i == j) { temporal.setElemento(i, j+tamano, 1); }
+                else { temporal.setElemento(i, j+tamano, 0); }
             }
         }
         
-        temporal.imprimir();
-        
-        //Aplicar eliminacion de Gauss Jordan a la matriz aumentada
+        //Aplicar eliminacion de Gauss-Jordan a la matriz aumentada
         for (int i = 0; i < tamano; i++)
         {
-            if (temporal.getElemento(i, i) == 0)
-            {
-                //return null;
-            }
+            if (temporal.getElemento(i, i) == 0) { return null; }
             
             for (int j = 0; j < tamano; j++)
             {
@@ -136,8 +125,6 @@ public class OperadorMatrices
                 }
             }
         }
-        
-        temporal.imprimir();
         
         //Convertir la diagonal principal en 1s
         for (int i = 0; i < tamano; i++)
@@ -182,8 +169,60 @@ public class OperadorMatrices
      * las variables correspondientes y su valor.
      */
     public Matriz solucionarSistema_Cramer(Matriz A)
-    {
-        Matriz resultado = new Matriz(0,0,"R");
+    {   
+        // 3 2 1 1
+        // 2 0 1 2
+        // -1 1 2 4
+        int columnaRespuesta = A.getColumnas()-1;
+        int numVariables = A.getFilas();
+        Matriz resultado = new Matriz(1,numVariables,"R");
+        Matriz temporal = new Matriz(A.getFilas(), A.getColumnas()-1, "T");
+        
+        //Introducir dentro de la matriz temporal el sistema de ecuaciones sin 
+        //las soluciones. Esta sera la plantilla a sobrescribir luego
+        for (int i = 0; i < A.getFilas(); i++)
+        {
+            for (int j = 0; j < A.getColumnas()-1; j++)
+            {
+                temporal.setElemento(i, j, A.getElemento(i, j));
+            }
+        }
+        
+        temporal.imprimir();
+        
+        //Por cada variable, crear una matriz temporal donde se sobreescribe
+        //la columna col con la columna de respuestas de la matriz A solo cuando
+        //es la columna correspondiente
+        for (int filaR = 0; filaR < numVariables; filaR++) //La variable columna actual (x1, x2, x3)
+        {
+            Matriz variableDet = new Matriz(temporal.getFilas(), temporal.getColumnas(), "T");
+            for (int col = 0; col < temporal.getColumnas(); col++) //La columna actual
+            {
+                for (int fil = 0; fil < temporal.getFilas(); fil++) //La fila actual
+                {
+                    for (int var = 0; var < numVariables; var++) //La variable fila actual (x,y,z)
+                    {
+                        //System.out.println("R:"+filaR+" columna:"+col+" fila:"+fil+" var: "+var);
+                        if (var == fil && col == filaR)
+                        {
+                            //System.out.println("fila:"+fil+" var: "+var+" valor:"+A.getElemento(var, columnaRespuesta));
+                            variableDet.setElemento(fil, col, A.getElemento(var, columnaRespuesta));
+                            break;
+                        }
+                        else
+                        {
+                            variableDet.setElemento(fil, col, temporal.getElemento(fil, col));
+                        }
+                    }
+                }
+            }
+            //Al llegar a este punto, la variableDet debe de tener la matriz
+            //superior de la formula, la cual solo tiene sobreescritas las
+            //variables de respuesta en la columna correspondiente al numero
+            //de variable columna a obtener
+            float resultadoFormula = calcularDeterminante(variableDet)/calcularDeterminante(temporal);
+            resultado.setElemento(0, filaR, resultadoFormula);
+        }
         return resultado;
     }
     
