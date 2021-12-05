@@ -1,12 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: matrices.OperadorMatricesTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.02 sec <<< FAILURE!
-matrices.OperadorMatricesTest.testSolucionarSistema_GJ()  Time elapsed: 0.004 sec  <<< FAILURE!
-java.lang.AssertionError: expected:<null> but was:<matrices.Matriz@cc34f4d>
-	at org.junit.Assert.fail(Assert.java:89)
-	at org.junit.Assert.failNotEquals(Assert.java:835)
-	at org.junit.Assert.assertEquals(Assert.java:120)
-	at org.junit.Assert.assertEquals(Assert.java:146)
-	at matrices.OperadorMatricesTest.testSolucionarSistema_GJ(OperadorMatricesTest.java:167)
-
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.047 sec

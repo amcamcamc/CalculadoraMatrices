@@ -144,11 +144,6 @@ public class OperadorMatricesTest {
         Matriz result = instance.calcularInversa_GJ(A);
         result.redondearElementos();
         
-        System.out.println("exp:");
-        expResult.imprimir();
-        System.out.println("act:");
-        result.imprimir();
-        
         boolean igualdadResultado = result.esIgualA(expResult);
         assertEquals(true, igualdadResultado);
         // TODO review the generated test code and remove the default call to fail.
@@ -161,10 +156,23 @@ public class OperadorMatricesTest {
     @Test
     public void testSolucionarSistema_GJ() {
         System.out.println("solucionarSistema_GJ");
-        Matriz A = null;
-        Matriz expResult = null;
+        float[][] matA = {
+                            {3,-0.1F,-0.2F,7.8500F},
+                            {0.1F,7,-0.3F,-19.3F},
+                            {0.3F,-0.2F,10,71.4F},
+                         };
+        float[][] matR = {
+                            {3,-2.499F,7.001F},
+                         };
+        Matriz A = new Matriz(3,4,"A",matA);
+        
+        Matriz expResult = new Matriz(1,3,"R",matR);
+        expResult.redondearElementos();
         Matriz result = instance.solucionarSistema_GJ(A);
-        assertEquals(expResult, result);
+        result.redondearElementos();
+        
+        boolean igualdadResultado = result.esIgualA(expResult);
+        assertEquals(true, igualdadResultado);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -189,11 +197,6 @@ public class OperadorMatricesTest {
         expResult.redondearElementos();
         Matriz result = instance.solucionarSistema_Cramer(A);
         result.redondearElementos();
-        
-        System.out.println("exp:");
-        expResult.imprimir();
-        System.out.println("act:");
-        result.imprimir();
         
         boolean igualdadResultado = result.esIgualA(expResult);
         assertEquals(true, igualdadResultado);

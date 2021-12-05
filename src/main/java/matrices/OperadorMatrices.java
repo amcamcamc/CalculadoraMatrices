@@ -15,7 +15,8 @@ public class OperadorMatrices
      */
     public Matriz sumaEntreMatrices(Matriz A, Matriz B)
     {
-        assert(A.dimensionesIguales(B));
+        //Las matrices deben tener la misma dimension para poder ser sumadas
+        if (!A.dimensionesIguales(B)) { return null; }
         Matriz resultado = new Matriz(A.getFilas(), A.getColumnas(), "R");
         
         for (int i = 0; i < A.getFilas(); ++i) 
@@ -61,7 +62,8 @@ public class OperadorMatrices
      */
     public Matriz productoEntreMatrices(Matriz A, Matriz B) 
     {
-        assert(A.getColumnas() == B.getFilas());
+        //El numero de columnas de A debe ser el mismo numero de filas de B
+        if (!(A.getColumnas() == B.getFilas())) { return null; }
         
         Matriz resultado = new Matriz(A.getFilas(), B.getColumnas(), "R");
         
@@ -94,14 +96,16 @@ public class OperadorMatrices
         temporal.asignarElementos(A.getElementos(), tamano, tamano);
         
         float determinante = calcularDeterminante(A);
-        if (determinante == 0) { return null; } //Cuadrada y no singular
+        
+        //La matriz debe ser cuadrada y no singular
+        if (determinante == 0) { return null; }
        
         //Aumentar la matriz A con la matriz de identidad
         for (int i = 0; i < tamano; i++)
         {
             for (int j = 0; j < tamano; j++)
             {
-                System.out.println(i+", "+j);
+                //System.out.println(i+", "+j);
                 if (i == j) { temporal.setElemento(i, j+tamano, 1); }
                 else { temporal.setElemento(i, j+tamano, 0); }
             }
@@ -157,7 +161,88 @@ public class OperadorMatrices
      */
     public Matriz solucionarSistema_GJ(Matriz A)
     {
-        Matriz resultado = new Matriz(0,0,"R");
+        double epsilon = 1e-10; //margen de error para considerar la matriz singular
+        
+        int columnaRespuesta = A.getColumnas()-1;
+        int numVariables = A.getFilas();
+        Matriz resultado = new Matriz(1,numVariables,"R");
+        
+        //Copiamos la Matriz A a otra matriz sin la columna respuesta b
+        Matriz temporal = new Matriz(A.getFilas(), A.getColumnas()-1, "T");
+        temporal.asignarElementos(A.getElementos(), numVariables, columnaRespuesta);
+        
+        //Como vamos a realizar muchas operaciones con la matriz original,
+        //es mejor no utilizar el objeto matriz. Creamos un arreglo al cual
+        //se le puedan asignar los valores de la matriz
+        float[][] Asinb = temporal.getElementos();
+        
+        //Como la matriz A ya deberia estar aumentada solo copiamos la columna
+        //respuesta a un arreglo para poder manipularla.
+        float[] bCol = new float[numVariables];
+        
+        for (int i = 0; i < numVariables; i++)
+        {
+            bCol[i] = A.getElemento(i, columnaRespuesta);
+        }
+        
+        //Aplicar eliminacion de Gauss-Jordan a la matriz aumentada
+        for (int pivote = 0; pivote < numVariables; pivote++)
+        {
+            //Encontrar el pivote
+            int max = pivote;
+            for (int i = pivote + 1; i < numVariables; i++)
+            {
+                
+                if (Math.abs(Asinb[i][pivote]) > Math.abs(Asinb[max][pivote]))
+                {
+                    max = i;
+                }
+            }
+            //Intercambiar filas
+            float[] tempFila_A = Asinb[pivote];
+            Asinb[pivote] = Asinb[max];
+            Asinb[max] = tempFila_A;
+            
+            float tempFila_b = bCol[pivote];
+            bCol[pivote] = bCol[max];
+            bCol[max] = tempFila_b;
+
+            //La matriz no puede ser singular
+            if (Math.abs(Asinb[pivote][pivote]) <= epsilon)
+            {
+                return null;
+            }
+
+            //Pivote de A y b
+            for (int i = pivote + 1; i < numVariables; i++)
+            {
+                float delta = Asinb[i][pivote] / Asinb[pivote][pivote];
+                bCol[i] -= delta * bCol[pivote];
+                for (int j = pivote; j < numVariables; j++)
+                {
+                    Asinb[i][j] -= delta * Asinb[pivote][j];
+                }
+            }
+        }
+
+        //Encontrar las variables sustituyendo en reversa
+        float[] variables = new float[numVariables];
+        for (int i = numVariables - 1; i >= 0; i--)
+        {
+            float suma = 0.0F;
+            for (int j = i + 1; j < numVariables; j++)
+            {
+                suma += Asinb[i][j] * variables[j] + 0F;
+            }
+            variables[i] = (bCol[i] - suma) / Asinb[i][i] + 0F;
+        }
+        
+        //Convertimos el arreglo de respuestas a matriz de una sola fila
+        for (int i = 0; i < numVariables; i++)
+        {
+            resultado.setElemento(0, i, variables[i]);
+        }
+        
         return resultado;
     }
     
@@ -170,25 +255,14 @@ public class OperadorMatrices
      */
     public Matriz solucionarSistema_Cramer(Matriz A)
     {   
-        // 3 2 1 1
-        // 2 0 1 2
-        // -1 1 2 4
         int columnaRespuesta = A.getColumnas()-1;
         int numVariables = A.getFilas();
         Matriz resultado = new Matriz(1,numVariables,"R");
         Matriz temporal = new Matriz(A.getFilas(), A.getColumnas()-1, "T");
         
         //Introducir dentro de la matriz temporal el sistema de ecuaciones sin 
-        //las soluciones. Esta sera la plantilla a sobrescribir luego
-        for (int i = 0; i < A.getFilas(); i++)
-        {
-            for (int j = 0; j < A.getColumnas()-1; j++)
-            {
-                temporal.setElemento(i, j, A.getElemento(i, j));
-            }
-        }
-        
-        temporal.imprimir();
+        //las soluciones.        
+        temporal.asignarElementos(A.getElementos(), A.getFilas(), A.getColumnas()-1);
         
         //Por cada variable, crear una matriz temporal donde se sobreescribe
         //la columna col con la columna de respuestas de la matriz A solo cuando
@@ -196,22 +270,19 @@ public class OperadorMatrices
         for (int filaR = 0; filaR < numVariables; filaR++) //La variable columna actual (x1, x2, x3)
         {
             Matriz variableDet = new Matriz(temporal.getFilas(), temporal.getColumnas(), "T");
+            variableDet.asignarElementos(temporal.getElementos(), temporal.getFilas(), temporal.getColumnas());
             for (int col = 0; col < temporal.getColumnas(); col++) //La columna actual
             {
                 for (int fil = 0; fil < temporal.getFilas(); fil++) //La fila actual
                 {
                     for (int var = 0; var < numVariables; var++) //La variable fila actual (x,y,z)
                     {
-                        //System.out.println("R:"+filaR+" columna:"+col+" fila:"+fil+" var: "+var);
+                        System.out.println("R:"+filaR+" columna:"+col+" fila:"+fil+" var: "+var);
                         if (var == fil && col == filaR)
                         {
-                            //System.out.println("fila:"+fil+" var: "+var+" valor:"+A.getElemento(var, columnaRespuesta));
+                            System.out.println("fila:"+fil+" var: "+var+" valor:"+A.getElemento(var, columnaRespuesta));
                             variableDet.setElemento(fil, col, A.getElemento(var, columnaRespuesta));
                             break;
-                        }
-                        else
-                        {
-                            variableDet.setElemento(fil, col, temporal.getElemento(fil, col));
                         }
                     }
                 }
@@ -281,7 +352,7 @@ public class OperadorMatrices
      */
     public Matriz calcularTranspuesta(Matriz A)
     {
-        Matriz resultado = new Matriz(A.getFilas(), A.getColumnas(), "R");
+        Matriz resultado = new Matriz(A.getColumnas(), A.getFilas(), "R");
         
         for (int i = 0; i < A.getFilas(); i++)
         {
