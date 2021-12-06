@@ -10,10 +10,10 @@
 * (7) Solucion de un sistema de ecuaciones por Cramer [X]
 ---
 ### Documentos
-* (1) Documento integrador
-    * Portada [ ]
-    * Modelado del dominio del problema (UML) [ ]
-    * Checklist de las practicas aplicadas [ ]
-    * Lecciones aprendidas del uso de JUnit [ ]
-    * Lecciones aprendidas del uso de JavaDoc [ ]
-* (2) Documentacion en JavaDoc [X]
+* (1) Documento integrador (dentro de carpeta entregables)
+    * Portada [X]
+    * Modelado del dominio del problema (UML) [X]
+    * Checklist de las practicas aplicadas [X]
+    * Lecciones aprendidas del uso de JUnit [X]
+    * Lecciones aprendidas del uso de JavaDoc [X]
+* (2) Documentacion en JavaDoc [X] (dentro de carpeta doxygen)
