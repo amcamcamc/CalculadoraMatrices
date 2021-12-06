@@ -176,9 +176,9 @@ public class OperadorMatricesTest {
         A.imprimir();
         
         Matriz expResult = new Matriz(3,3,"R",matR);
-        expResult.redondearElementos();
+        expResult.redondearValores();
         Matriz result = instance.calcularInversa_GJ(A);
-        result.redondearElementos();
+        result.redondearValores();
         
         System.out.println("Resultado esperado:");
         expResult.imprimir();
@@ -193,10 +193,10 @@ public class OperadorMatricesTest {
     }
 
     /**
-     * Test of solucionarSistema_GJ method, of class OperadorMatrices.
+     * Test of solucionarSistemaGJ method, of class OperadorMatrices.
      */
     @Test
-    public void testSolucionarSistema_GJ() {
+    public void testSolucionarSistemaGJ() {
         System.out.println("solucionarSistema_GJ");
         float[][] matA = {
                             {3,-0.1F,-0.2F,7.8500F},
@@ -212,9 +212,9 @@ public class OperadorMatricesTest {
         A.imprimir();
         
         Matriz expResult = new Matriz(1,3,"R",matR);
-        expResult.redondearElementos();
-        Matriz result = instance.solucionarSistema_GJ(A);
-        result.redondearElementos();
+        expResult.redondearValores();
+        Matriz result = instance.solucionarSistemaGJ(A);
+        result.redondearValores();
         
         System.out.println("Resultado esperado:");
         expResult.imprimir();
@@ -229,10 +229,10 @@ public class OperadorMatricesTest {
     }
 
     /**
-     * Test of solucionarSistema_Cramer method, of class OperadorMatrices.
+     * Test of solucionarSistemaCramer method, of class OperadorMatrices.
      */
     @Test
-    public void testSolucionarSistema_Cramer() {
+    public void testSolucionarSistemaCramer() {
         System.out.println("solucionarSistema_Cramer");
         float[][] matA = {
                             {3,2,1,1},
@@ -248,9 +248,9 @@ public class OperadorMatricesTest {
         A.imprimir();
         
         Matriz expResult = new Matriz(1,3,"R",matR);
-        expResult.redondearElementos();
-        Matriz result = instance.solucionarSistema_Cramer(A);
-        result.redondearElementos();
+        expResult.redondearValores();
+        Matriz result = instance.solucionarSistemaCramer(A);
+        result.redondearValores();
         
         System.out.println("Resultado esperado:");
         expResult.imprimir();
@@ -282,7 +282,7 @@ public class OperadorMatricesTest {
         A.imprimir();
         
         float expResult = 140F;
-        float result = instance.calcularDeterminante(A).getElemento(0, 0);
+        float result = instance.calcularDeterminante(A).getValor(0, 0);
         
         System.out.println("Resultado esperado:");
         System.out.println(expResult);

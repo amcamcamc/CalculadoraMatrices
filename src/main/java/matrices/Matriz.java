@@ -15,31 +15,35 @@ public class Matriz
      * que sean resultantes de operaciones, y se utiliza la letra T para las
      * matrices en las cuales se realizan operaciones temporales.
      */
-    private String id;
-    private int filas; /** Numero de filas de la matriz */ 
-    private int columnas; /** Numero de columnas de la matriz */ 
+    private String id = "X";
+    private int filas = 0; /** Numero de filas de la matriz */ 
+    private int columnas = 0; /** Numero de columnas de la matriz */ 
     /**
      * Los elementos de una matriz. El orden del arreglo es [filas][columnas]
      */
-    private float[][] elementos;
+    private float[][] valores; //Se decide no inicializarse por cuestion de que no es un arreglo dinamico
     
     /**
-     * Enum para los errores de matriz.
+     * Enum para los errores de matriz. Se utiliza para identificar cuando hay
+     * errores en los procedimientos a realizar. En ese caso se retorna una matriz
+     * que contenga inicializada el campo "error" con alguno de estos errores.
+     * Si no tiene ningun error, entonces se pone el que dice NINGUNO.
      */
     public enum ErrorMatriz
     {
-        NoCuadrada,
-        Singular,
-        MetodoIncompatible,
-        DimensionesIncompatibles,
-        ErrorMatematico,
-        Ninguno,
+        INVALIDO,
+        NINGUNO,
+        NO_CUADRADA,
+        SINGULAR,
+        METODO_INCOMPATIBLE,
+        DIMENSIONES_INCOMPATIBLES,
+        ERROR_MATEMATICO,
     }
     
     /**
      * Se modifica y se lee para mostrarle al usuario que paso con la operacion
      */
-    private ErrorMatriz error = ErrorMatriz.Ninguno;
+    private ErrorMatriz error = ErrorMatriz.NINGUNO;
     
     /**
      * Constructor del objeto Matriz. Se utiliza para crear una matriz vacia
@@ -52,7 +56,7 @@ public class Matriz
     {
         this.filas = filas;
         this.columnas = columnas;
-        elementos = new float[filas][columnas];
+        valores = new float[filas][columnas];
         this.id = id;
     }
     
@@ -68,7 +72,7 @@ public class Matriz
     {
         this.filas = filas;
         this.columnas = columnas;
-        this.elementos = elementos;
+        this.valores = elementos;
         this.id = id;
     }
     
@@ -95,8 +99,8 @@ public class Matriz
      * @param columna
      * @param valor
      */
-    public void setElemento(int fila, int columna, float valor)
-    { elementos[fila][columna] = valor; }
+    public void setValor(int fila, int columna, float valor)
+    { valores[fila][columna] = valor; }
     
     /**
      * Retorna el valor flotante del elemento de la matriz
@@ -105,15 +109,30 @@ public class Matriz
      * @param columna
      * @return
      */
-    public float getElemento(int fila, int columna)
-    { return elementos[fila][columna]; }
+    public float getValor(int fila, int columna)
+    { return valores[fila][columna]; }
     
     /**
-     * Retorna todos los elementos de la matriz.
-     * @return float[][] El arreglo de elementos. Orden [fila][columna]
+     * Asigna los valores de la matriz utilizando un arreglo bidimensional
+     * @param elementos float[][] Arreglo bidimensional de numeros
      */
-    public float[][] getElementos()
-    { return elementos; }
+    public void setValores(float[][] elementos, int maxFilas, int maxColumnas)
+    {
+        for (int i = 0; i < maxFilas; i++)
+        {
+            for (int j = 0; j < maxColumnas; j++)
+            {
+                this.setValor(i, j, elementos[i][j]);
+            }
+        }
+    }
+    
+    /**
+     * Retorna todos los valores de la matriz.
+     * @return float[][] El arreglo de valores. Orden [fila][columna]
+     */
+    public float[][] getValores()
+    { return valores; }
     
     /**
      * Retorna el numero de filas de la matriz.
@@ -144,7 +163,7 @@ public class Matriz
             for (int columna = 0; columna < columnas; ++columna) 
             {
                 //if (columna > 0) { System.out.print(" "); }
-                System.out.printf("%7.2f", elementos[fila][columna]);
+                System.out.printf("%7.2f", valores[fila][columna]);
             }
             System.out.print("  ]");
             System.out.println("");
@@ -157,15 +176,14 @@ public class Matriz
      * usuario pueda saber cual es el elemento seleccionado actualmente.
      * @param elementoFila El indice fila del elemento
      * @param elementoColumna El indice columna del elemento
-     * @return ArrayList<String> La lista de cadenas que se requieren 
+     * @return ArrayList String La lista de cadenas que se requieren 
      * para dibujar la representacion de la matriz, incluyendo la representacion 
      * de la seleccion del elemento deseado.
      */
     public ArrayList<String> mostrarElemento(int elementoFila, int elementoColumna)
     {
         boolean elementoEncontrado = false;
-        ArrayList<String> cadenas = new ArrayList<String>();
-        int cadenasCont;
+        ArrayList<String> cadenas = new ArrayList<>();
         
         for (int fila = 0; fila < filas; ++fila) 
         {
@@ -178,7 +196,7 @@ public class Matriz
                     cadenas.add(">");
                     elementoEncontrado = true;
                 }
-                cadenas.add(""+elementos[fila][columna]);
+                cadenas.add(""+valores[fila][columna]);
                 if (elementoEncontrado) { cadenas.add("<"); elementoEncontrado = false; }
             }
             cadenas.add("  ]");
@@ -204,12 +222,12 @@ public class Matriz
      */
     public boolean esCuadrada()
     {
-        return (this.getFilas() == this.getColumnas());
+        return this.getFilas() == this.getColumnas();
     }
     
     /**
-     * Compara todos los elementos de dos matrices para concluir si son
-     * iguales o no.
+     * Compara todos los valores de dos matrices para concluir si son
+ iguales o no.
      * @param comparacion Matriz a comparar
      * @return boolean Verdadero o Falso a la premisa.
      */
@@ -219,8 +237,8 @@ public class Matriz
         {
             for (int j = 0; j < this.getColumnas(); j++)
             {
-                float matrizEl = this.getElemento(i, j);
-                float comparEl = comparacion.getElemento(i,j);
+                float matrizEl = this.getValor(i, j);
+                float comparEl = comparacion.getValor(i,j);
                 
                 //A veces los -0 no son iguales a los 0, asi que normalizamos.
                 if (matrizEl == 0 || matrizEl == -0) { matrizEl = 0.0F; }
@@ -246,7 +264,7 @@ public class Matriz
         {
             for (int j = 0; j < this.getColumnas(); j++)
             {
-                if (elementos[i][j] != 0)
+                if (valores[i][j] != 0)
                 {
                     return false;
                 }
@@ -266,11 +284,11 @@ public class Matriz
         {
             for (int j = 0; j < this.getColumnas(); j++)
             {
-                if (elementos[i][j] != 0 && j != i)
+                if (valores[i][j] != 0 && j != i)
                 {
                     return false;
                 }
-                if (elementos[i][i] != 1)
+                if (valores[i][i] != 1)
                 {
                     return false;
                 }
@@ -280,33 +298,18 @@ public class Matriz
     }
     
     /**
-     * Asigna los elementos de la matriz utilizando un arreglo bidimensional
-     * @param elementos float[][] Arreglo bidimensional de numeros
-     */
-    public void asignarElementos(float[][] elementos, int maxFilas, int maxColumnas)
-    {
-        for (int i = 0; i < maxFilas; i++)
-        {
-            for (int j = 0; j < maxColumnas; j++)
-            {
-                this.setElemento(i, j, elementos[i][j]);
-            }
-        }
-    }
-    
-    /**
-     * Redondea los elementos de la matriz 2 puntos decimales. Es requerido
+     * Redondea los valores de la matriz 2 puntos decimales. Es requerido
      * para las pruebas unitarias porque a veces se considera que los resultados
      * no son iguales aunque lo unico que tengan diferente es el octavo numero
      * decimal.
      */
-    public void redondearElementos()
+    public void redondearValores()
     {
         for (int i = 0; i < getFilas(); i++)
         {
             for (int j = 0; j < getColumnas(); j++)
             {
-                this.setElemento(i, j, Math.round(elementos[i][j]*100.0F)/100.0F);
+                this.setValor(i, j, Math.round(valores[i][j]*100.0F)/100.0F);
             }
         }
     }

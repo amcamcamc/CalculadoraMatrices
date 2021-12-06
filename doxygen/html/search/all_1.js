@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['asignarelementos_0',['asignarElementos',['../classmatrices_1_1_matriz.html#a518fb6a205d32d6dccf7c2ff06837ca1',1,'matrices::Matriz']]]
+  ['calculardeterminante_0',['calcularDeterminante',['../classmatrices_1_1_operador_matrices.html#a870257a875b27aea149fbec6fedcf36a',1,'matrices::OperadorMatrices']]],
+  ['calcularinversa_5fgj_1',['calcularInversa_GJ',['../classmatrices_1_1_operador_matrices.html#aaf47fbf5f71b7cad3efe6dee5858fb10',1,'matrices::OperadorMatrices']]],
+  ['calculartranspuesta_2',['calcularTranspuesta',['../classmatrices_1_1_operador_matrices.html#a8a633d6ed4f658f4b329fa6522e58b72',1,'matrices::OperadorMatrices']]]
 ];

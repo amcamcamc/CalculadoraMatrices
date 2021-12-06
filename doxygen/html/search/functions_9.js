@@ -1,7 +1,11 @@
 var searchData=
 [
-  ['setelemento_0',['setElemento',['../classmatrices_1_1_matriz.html#ad7968c65a345c4851280b48493f8890a',1,'matrices::Matriz']]],
-  ['solucionarsistema_5fcramer_1',['solucionarSistema_Cramer',['../classmatrices_1_1_operador_matrices.html#a24f6fb64891b2d2464266e6669bd805f',1,'matrices::OperadorMatrices']]],
-  ['solucionarsistema_5fgj_2',['solucionarSistema_GJ',['../classmatrices_1_1_operador_matrices.html#a4947686fda92b4cb2121dfd6484db4e3',1,'matrices::OperadorMatrices']]],
-  ['sumaentrematrices_3',['sumaEntreMatrices',['../classmatrices_1_1_operador_matrices.html#adab884953b6a29c9401358e8af06aa8c',1,'matrices::OperadorMatrices']]]
+  ['testcalculardeterminante_0',['testCalcularDeterminante',['../classmatrices_1_1_operador_matrices_test.html#a7792110c6e977037a61878fcc2304807',1,'matrices::OperadorMatricesTest']]],
+  ['testcalcularinversa_5fgj_1',['testCalcularInversa_GJ',['../classmatrices_1_1_operador_matrices_test.html#af78c72b12f53441519b10e7c99802d5e',1,'matrices::OperadorMatricesTest']]],
+  ['testcalculartranspuesta_2',['testCalcularTranspuesta',['../classmatrices_1_1_operador_matrices_test.html#a1a16269369e38c5b47a752b0980d7fae',1,'matrices::OperadorMatricesTest']]],
+  ['testmultiplicacionporescalar_3',['testMultiplicacionPorEscalar',['../classmatrices_1_1_operador_matrices_test.html#ade709d4993120986d9db7097857a3e58',1,'matrices::OperadorMatricesTest']]],
+  ['testproductoentrematrices_4',['testProductoEntreMatrices',['../classmatrices_1_1_operador_matrices_test.html#a1dca0fbe819fae3a955620b71af1f791',1,'matrices::OperadorMatricesTest']]],
+  ['testsolucionarsistemacramer_5',['testSolucionarSistemaCramer',['../classmatrices_1_1_operador_matrices_test.html#a18376f96f094696e818f72e28b850013',1,'matrices::OperadorMatricesTest']]],
+  ['testsolucionarsistemagj_6',['testSolucionarSistemaGJ',['../classmatrices_1_1_operador_matrices_test.html#aea99efc0620e2b74982321ad481a7457',1,'matrices::OperadorMatricesTest']]],
+  ['testsumaentrematrices_7',['testSumaEntreMatrices',['../classmatrices_1_1_operador_matrices_test.html#ae4aea0431351cfe680bc21fa09f9a3ee',1,'matrices::OperadorMatricesTest']]]
 ];

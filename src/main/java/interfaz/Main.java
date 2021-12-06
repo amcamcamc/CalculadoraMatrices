@@ -6,7 +6,10 @@ package interfaz;
  */
 public class Main 
 {
-    private static Menu menuPrincipal = new Menu();
+    /**
+     * El objeto de la vista de la interfaz principal
+     */
+    private final static MenuPrincipal menuPrincipal = new MenuPrincipal();
     
     /**
      * @param args ninguno

@@ -7,8 +7,7 @@ package matrices;
 public class OperadorMatrices 
 {
     /**
-     * Dadas dos matrices A y B con las mismas dimensiones, retorna la suma de
-     * A+B.
+     * Dadas dos matrices A y B con las mismas dimensiones, retorna la suma de A+B.
      * @param A Matriz A
      * @param B Matriz B
      * @return Matriz resultante de la suma A+B.
@@ -20,7 +19,7 @@ public class OperadorMatrices
         //Las matrices deben tener la misma dimension para poder ser sumadas
         if (!A.dimensionesIguales(B))
         {
-            return new Matriz(Matriz.ErrorMatriz.DimensionesIncompatibles);
+            return new Matriz(Matriz.ErrorMatriz.DIMENSIONES_INCOMPATIBLES);
         }
         Matriz resultado = new Matriz(A.getFilas(), A.getColumnas(), "R");
         
@@ -28,13 +27,13 @@ public class OperadorMatrices
         {
             for (int j = 0; j < A.getColumnas(); ++j) 
             {
-                resultado.setElemento(i, j, A.getElemento(i, j)+B.getElemento(i, j));
+                resultado.setValor(i, j, A.getValor(i, j)+B.getValor(i, j));
             }
         }
         
         return resultado;
         
-        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ERROR_MATEMATICO); }
     }
     
     /**
@@ -54,13 +53,13 @@ public class OperadorMatrices
         {
             for (int j = 0; j < A.getColumnas(); ++j) 
             {
-                resultado.setElemento(i, j, A.getElemento(i, j)*escalar);
+                resultado.setValor(i, j, A.getValor(i, j)*escalar);
             }
         }
         
         return resultado;
         
-        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ERROR_MATEMATICO); }
     }
     
     /**
@@ -78,27 +77,29 @@ public class OperadorMatrices
         //El numero de columnas de A debe ser el mismo numero de filas de B
         if (!(A.getColumnas() == B.getFilas()))
         {
-            return new Matriz(Matriz.ErrorMatriz.DimensionesIncompatibles);
+            return new Matriz(Matriz.ErrorMatriz.DIMENSIONES_INCOMPATIBLES);
         }
         
         Matriz resultado = new Matriz(A.getFilas(), B.getColumnas(), "R");
         
         for (int i = 0; i < A.getFilas(); ++i) 
         {
-            float[] resultadoFila = resultado.getElementos()[i];
-            float[] AFila = A.getElementos()[i];
+            float[] resultadoFila = resultado.getValores()[i];
+            float[] filaA = A.getValores()[i];
             
             for (int j = 0; j < A.getColumnas(); ++j) 
             {
-                float[] BFila = B.getElementos()[j];
+                float[] filaB = B.getValores()[j];
                 for (int k = 0; k < B.getColumnas(); ++k)
-                    resultadoFila[k] += AFila[j] * BFila[k];
+                {
+                    resultadoFila[k] += filaA[j] * filaB[k];
+                }
             }
         }
         
         return resultado;
         
-        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ERROR_MATEMATICO); }
     }
     
     /**
@@ -113,77 +114,80 @@ public class OperadorMatrices
         
         if (!A.esCuadrada())
         {
-            return new Matriz(Matriz.ErrorMatriz.NoCuadrada);
+            return new Matriz(Matriz.ErrorMatriz.NO_CUADRADA);
         }
         
-        int tamano = A.getFilas();
-        Matriz temporal = new Matriz(tamano,tamano*2,"T");
-        temporal.asignarElementos(A.getElementos(), tamano, tamano);
-        
-        float determinante = calcularDeterminante(A).getElemento(0, 0);
-        
+        float determinante = calcularDeterminante(A).getValor(0, 0);
         //La matriz tampoco debe ser singular
         if (determinante == 0)
         {
-            return new Matriz(Matriz.ErrorMatriz.Singular);
+            return new Matriz(Matriz.ErrorMatriz.SINGULAR);
         }
+        
+        int longitudMatriz = A.getFilas();
+        Matriz calcMatriz = new Matriz(longitudMatriz,longitudMatriz*2,"T");
+        calcMatriz.setValores(A.getValores(), longitudMatriz, longitudMatriz);
        
         //Aumentar la matriz A con la matriz de identidad
-        for (int i = 0; i < tamano; i++)
+        for (int i = 0; i < longitudMatriz; i++)
         {
-            for (int j = 0; j < tamano; j++)
+            for (int j = 0; j < longitudMatriz; j++)
             {
                 //System.out.println(i+", "+j);
-                if (i == j) { temporal.setElemento(i, j+tamano, 1); }
-                else { temporal.setElemento(i, j+tamano, 0); }
+                if (i == j) { calcMatriz.setValor(i, j+longitudMatriz, 1); }
+                else { calcMatriz.setValor(i, j+longitudMatriz, 0); }
             }
         }
         
         //Aplicar eliminacion de Gauss-Jordan a la matriz aumentada
-        for (int i = 0; i < tamano; i++)
+        //Nota: Los 0F sumados al final es para que el numero flotante del resultado
+        //aparezca con decimales y no se redondee automaticamente.
+        for (int i = 0; i < longitudMatriz; i++)
         {
             //La diagonal principal no puede tener 0s
-            if (temporal.getElemento(i, i) == 0)
+            if (calcMatriz.getValor(i, i) == 0)
             {
-                return new Matriz(Matriz.ErrorMatriz.ErrorMatematico);
+                return new Matriz(Matriz.ErrorMatriz.ERROR_MATEMATICO);
             }
             
-            for (int j = 0; j < tamano; j++)
+            for (int j = 0; j < longitudMatriz; j++)
             {
                 if (i != j)
                 {
-                    float radio = temporal.getElemento(j, i)/temporal.getElemento(i, i) + 0F;
+                    float radio = calcMatriz.getValor(j, i)/calcMatriz.getValor(i, i) + 0F;
                     
-                    for (int k = 0; k < tamano*2; k++)
+                    for (int k = 0; k < longitudMatriz*2; k++)
                     {
-                        temporal.setElemento(j, k, temporal.getElemento(j, k) - radio * temporal.getElemento(i, k) + 0F);
+                        calcMatriz.setValor(j, k, calcMatriz.getValor(j, k) - radio * calcMatriz.getValor(i, k) + 0F);
                     }
                 }
             }
         }
         
         //Convertir la diagonal principal en 1s
-        for (int i = 0; i < tamano; i++)
+        //Nota: Los 0F sumados al final es para que el numero flotante del resultado
+        //aparezca con decimales y no se redondee automaticamente.
+        for (int i = 0; i < longitudMatriz; i++)
         {
-            for (int j = tamano; j < tamano*2; j++)
+            for (int j = longitudMatriz; j < longitudMatriz*2; j++)
             {
-                temporal.setElemento(i, j, temporal.getElemento(i, j)/temporal.getElemento(i, i) + 0F);
+                calcMatriz.setValor(i, j, calcMatriz.getValor(i, j)/calcMatriz.getValor(i, i) + 0F);
             }
         }
         
         //Eliminar la parte que sobra de la matriz resultante
         Matriz resultado = new Matriz(A.getFilas(),A.getColumnas(),"R");
-        for (int i = 0; i < tamano; i++)
+        for (int i = 0; i < longitudMatriz; i++)
         {
-            for (int j = 0; j < tamano; j++)
+            for (int j = 0; j < longitudMatriz; j++)
             {
-                resultado.setElemento(i, j, temporal.getElemento(i, j+tamano));
+                resultado.setValor(i, j, calcMatriz.getValor(i, j+longitudMatriz));
             }
         }
         
         return resultado;
         
-        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ERROR_MATEMATICO); }
     }
     
     /**
@@ -193,36 +197,30 @@ public class OperadorMatrices
      * @return Matriz de una sola fila representando con cada columna 
      * las variables correspondientes y su valor.
      */
-    public Matriz solucionarSistema_GJ(Matriz A)
+    public Matriz solucionarSistemaGJ(Matriz A)
     {
         try {
-            
-        double epsilon = 1e-10; //margen de error para considerar la matriz singular
+  
+        if (
+            A.getColumnas() <= 2 || //Con este metodo solo se pueden solucionar matrices con dos variables o mas
+            A.esMatrizIdentidad() //No se puede aplicar GJ a la matriz identidad
+           )
+        {
+            return new Matriz(Matriz.ErrorMatriz.METODO_INCOMPATIBLE);
+        }
         
         int columnaRespuesta = A.getColumnas()-1;
         int numVariables = A.getFilas();
         Matriz resultado = new Matriz(1,numVariables,"R");
         
-        //Con este metodo solo se pueden solucionar matrices con dos variables o mas
-        if (A.getColumnas() <= 2)
-        {
-            return new Matriz(Matriz.ErrorMatriz.MetodoIncompatible);
-        }
-        
-        //No se puede aplicar GJ a la matriz identidad
-        if (A.esMatrizIdentidad())
-        {
-            return new Matriz(Matriz.ErrorMatriz.MetodoIncompatible);
-        }
-        
-        //Copiamos la Matriz A a otra matriz sin la columna respuesta b
-        Matriz temporal = new Matriz(A.getFilas(), A.getColumnas()-1, "T");
-        temporal.asignarElementos(A.getElementos(), numVariables, columnaRespuesta);
+        //Copiamos la Matriz A a otra matriz sin la columna resultado b
+        Matriz calcMatriz = new Matriz(A.getFilas(), A.getColumnas()-1, "T");
+        calcMatriz.setValores(A.getValores(), numVariables, columnaRespuesta);
         
         //Como vamos a realizar muchas operaciones con la matriz original,
         //es mejor no utilizar el objeto matriz. Creamos un arreglo al cual
         //se le puedan asignar los valores de la matriz
-        float[][] Asinb = temporal.getElementos();
+        float[][] Asinb = calcMatriz.getValores();
         
         //Como la matriz A ya deberia estar aumentada solo copiamos la columna
         //respuesta a un arreglo para poder manipularla.
@@ -230,9 +228,11 @@ public class OperadorMatrices
         
         for (int i = 0; i < numVariables; i++)
         {
-            bCol[i] = A.getElemento(i, columnaRespuesta);
+            bCol[i] = A.getValor(i, columnaRespuesta);
         }
         
+        final double epsilon = 1e-10; //margen de error para considerar la matriz singular
+        System.out.println(epsilon);
         //Aplicar eliminacion de Gauss-Jordan a la matriz aumentada
         for (int pivote = 0; pivote < numVariables; pivote++)
         {
@@ -241,24 +241,24 @@ public class OperadorMatrices
             for (int i = pivote + 1; i < numVariables; i++)
             {
                 
-                if (Math.abs(Asinb[i][pivote]) > Math.abs(Asinb[max][pivote]))
+                if (Math.abs(Asinb[max][pivote]) < Math.abs(Asinb[i][pivote]))
                 {
                     max = i;
                 }
             }
             //Intercambiar filas
-            float[] tempFila_A = Asinb[pivote];
+            float[] cambioFilaA = Asinb[pivote];
             Asinb[pivote] = Asinb[max];
-            Asinb[max] = tempFila_A;
+            Asinb[max] = cambioFilaA;
             
-            float tempFila_b = bCol[pivote];
+            float cambioFilab = bCol[pivote];
             bCol[pivote] = bCol[max];
-            bCol[max] = tempFila_b;
+            bCol[max] = cambioFilab;
 
             //La matriz no puede ser singular
             if (Math.abs(Asinb[pivote][pivote]) <= epsilon)
             {
-                return new Matriz(Matriz.ErrorMatriz.Singular);
+                return new Matriz(Matriz.ErrorMatriz.SINGULAR);
             }
 
             //Pivote de A y b
@@ -274,6 +274,8 @@ public class OperadorMatrices
         }
 
         //Encontrar las variables sustituyendo en reversa
+        //Nota: Los 0F sumados al final es para que el numero flotante del resultado
+        //aparezca con decimales y no se redondee automaticamente.
         float[] variables = new float[numVariables];
         for (int i = numVariables - 1; i >= 0; i--)
         {
@@ -288,12 +290,12 @@ public class OperadorMatrices
         //Convertimos el arreglo de respuestas a matriz de una sola fila
         for (int i = 0; i < numVariables; i++)
         {
-            resultado.setElemento(0, i, variables[i]);
+            resultado.setValor(0, i, variables[i]);
         }
         
         return resultado;
         
-        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ERROR_MATEMATICO); }
     }
     
     /**
@@ -303,55 +305,47 @@ public class OperadorMatrices
      * @return Matriz de una sola fila representando con cada columna
      * las variables correspondientes y su valor.
      */
-    public Matriz solucionarSistema_Cramer(Matriz A)
+    public Matriz solucionarSistemaCramer(Matriz A)
     {   
         try {
             
+        if (
+            A.getColumnas() <= 2 || //Con este metodo solo se pueden solucionar matrices con dos variables o mas
+            A.esVacia() || //La matriz tampoco debe ser vacia
+            A.esMatrizIdentidad() //No se puede aplicar Cramer a la matriz identidad
+           )
+        {
+            return new Matriz(Matriz.ErrorMatriz.METODO_INCOMPATIBLE);
+        }
+        
+        Matriz calcMatriz = new Matriz(A.getFilas(), A.getColumnas()-1, "T");
+        //Introducir dentro de la matriz resultado el sistema de ecuaciones sin 
+        //las soluciones.        
+        calcMatriz.setValores(A.getValores(), A.getFilas(), A.getColumnas()-1);
+        
         int columnaRespuesta = A.getColumnas()-1;
         int numVariables = A.getFilas();
+        
         Matriz resultado = new Matriz(1,numVariables,"R");
-        Matriz temporal = new Matriz(A.getFilas(), A.getColumnas()-1, "T");
         
-        //Con este metodo solo se pueden solucionar matrices con dos variables o mas
-        if (A.getColumnas() <= 2)
-        {
-            return new Matriz(Matriz.ErrorMatriz.MetodoIncompatible);
-        }
-        
-        //La matriz tampoco debe ser vacia
-        if (A.esVacia())
-        {
-            return new Matriz(Matriz.ErrorMatriz.MetodoIncompatible);
-        }
-        
-        //No se puede aplicar Cramer a la matriz identidad
-        if (A.esMatrizIdentidad())
-        {
-            return new Matriz(Matriz.ErrorMatriz.MetodoIncompatible);
-        }
-        
-        //Introducir dentro de la matriz temporal el sistema de ecuaciones sin 
-        //las soluciones.        
-        temporal.asignarElementos(A.getElementos(), A.getFilas(), A.getColumnas()-1);
-        
-        //Por cada variable, crear una matriz temporal donde se sobreescribe
+        //Por cada variable, crear una matriz resultado donde se sobreescribe
         //la columna col con la columna de respuestas de la matriz A solo cuando
         //es la columna correspondiente
         for (int filaR = 0; filaR < numVariables; filaR++) //La variable columna actual (x1, x2, x3)
         {
-            Matriz variableDet = new Matriz(temporal.getFilas(), temporal.getColumnas(), "T");
-            variableDet.asignarElementos(temporal.getElementos(), temporal.getFilas(), temporal.getColumnas());
-            for (int col = 0; col < temporal.getColumnas(); col++) //La columna actual
+            Matriz variableDet = new Matriz(calcMatriz.getFilas(), calcMatriz.getColumnas(), "T");
+            variableDet.setValores(calcMatriz.getValores(), calcMatriz.getFilas(), calcMatriz.getColumnas());
+            for (int col = 0; col < calcMatriz.getColumnas(); col++) //La columna actual
             {
-                for (int fil = 0; fil < temporal.getFilas(); fil++) //La fila actual
+                for (int fil = 0; fil < calcMatriz.getFilas(); fil++) //La fila actual
                 {
                     for (int var = 0; var < numVariables; var++) //La variable fila actual (x,y,z)
                     {
                         //System.out.println("R:"+filaR+" columna:"+col+" fila:"+fil+" var: "+var);
                         if (var == fil && col == filaR)
                         {
-                            //System.out.println("fila:"+fil+" var: "+var+" valor:"+A.getElemento(var, columnaRespuesta));
-                            variableDet.setElemento(fil, col, A.getElemento(var, columnaRespuesta));
+                            //System.out.println("fila:"+fil+" var: "+var+" valor:"+A.getValor(var, columnaRespuesta));
+                            variableDet.setValor(fil, col, A.getValor(var, columnaRespuesta));
                             break;
                         }
                     }
@@ -359,14 +353,14 @@ public class OperadorMatrices
             }
             //Al llegar a este punto, la variableDet debe de tener la matriz
             //superior de la formula, la cual solo tiene sobreescritas las
-            //variables de respuesta en la columna correspondiente al numero
+            //variables de resultado en la columna correspondiente al numero
             //de variable columna a obtener
-            float resultadoFormula = calcularDeterminante(variableDet).getElemento(0, 0)/calcularDeterminante(temporal).getElemento(0, 0);
-            resultado.setElemento(0, filaR, resultadoFormula);
+            float resultadoFormula = calcularDeterminante(variableDet).getValor(0, 0)/calcularDeterminante(calcMatriz).getValor(0, 0);
+            resultado.setValor(0, filaR, resultadoFormula);
         }
         return resultado;
         
-        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ERROR_MATEMATICO); }
     }
     
     /**
@@ -378,54 +372,54 @@ public class OperadorMatrices
     {
         try {
         
-        float resultado = 0;
-        Matriz retorno = new Matriz(1,1,"R");
-        
         //Solo se puede calcular el determinante de matrices cuadradas
         if (!A.esCuadrada())
         {
-            return new Matriz(Matriz.ErrorMatriz.NoCuadrada);
+            return new Matriz(Matriz.ErrorMatriz.NO_CUADRADA);
         }
         
-        int tamano = A.getFilas();
-        if(tamano > 2) //Si las dimensiones son mayores que 2x2
+        float detCalculado = 0;
+        Matriz resultado = new Matriz(1,1,"R");
+        
+        final int longitudMatriz = A.getFilas();
+        if(longitudMatriz > 2) //Si las dimensiones son mayores que 2x2
         {
             //Reducir la matriz de manera recursiva utilizando una matriz mas pequena
-            Matriz matrizPequena = new Matriz(tamano-1,tamano-1,"T");
-            for(int i = 0; i < tamano; i++)
+            Matriz subMatriz = new Matriz(longitudMatriz-1,longitudMatriz-1,"T");
+            for(int i = 0; i < longitudMatriz; i++)
             {
-                for (int j = 0; j < tamano-1; j++)
+                for (int j = 0; j < longitudMatriz-1; j++)
                 {
                     //Copiar los elementos de la matriz parametro a la matriz pequena
                     int cont = 0;
-                    for (int k = 0; k < tamano; k++)
+                    for (int k = 0; k < longitudMatriz; k++)
                     {
                         if (k == i) { continue; }
-                        matrizPequena.setElemento(j, cont, A.getElemento(j+1, k));
+                        subMatriz.setValor(j, cont, A.getValor(j+1, k));
                         cont++;
                     }
                 }
-                //El determinante de la matriz tamano-1 x tamano-1
-                float determinantePequeno = A.getElemento(0,i)*calcularDeterminante(matrizPequena).getElemento(0, 0);
+                //El determinante de la matriz longitudMatriz-1 x longitudMatriz-1
+                float determinantePequeno = A.getValor(0,i)*calcularDeterminante(subMatriz).getValor(0, 0);
                 //El signo debe ser cambiado al intercambiar 2 columnas
-                resultado += Math.pow(-1,i)*determinantePequeno;
+                detCalculado += Math.pow(-1,i)*determinantePequeno;
             }
-            retorno.setElemento(0, 0, resultado);
-            return retorno;
+            resultado.setValor(0, 0, detCalculado);
+            return resultado;
         }
         else if(A.getFilas() == 2) //Si las dimensiones son de 2x2
         {
-            resultado = ((A.getElemento(0,0))*(A.getElemento(1,1))-(A.getElemento(0,1))*(A.getElemento(1,0)));
-            retorno.setElemento(0, 0, resultado);
-            return retorno;
+            detCalculado = A.getValor(0,0)*A.getValor(1,1)-A.getValor(0,1)*A.getValor(1,0);
+            resultado.setValor(0, 0, detCalculado);
+            return resultado;
         }
         else 
         {
-            retorno.setElemento(0, 0, A.getElemento(0, 0));
-            return retorno; //El determinante de una matriz 1x1 es el unico elemento
+            resultado.setValor(0, 0, A.getValor(0, 0));
+            return resultado; //El determinante de una matriz 1x1 es el unico elemento
         }
         
-        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ERROR_MATEMATICO); }
     }
     
     /**
@@ -443,12 +437,12 @@ public class OperadorMatrices
         {
             for (int j = 0; j < A.getColumnas(); j++)
             {
-                resultado.setElemento(j, i, A.getElemento(i, j));
+                resultado.setValor(j, i, A.getValor(i, j));
             }
         }
         
         return resultado;
         
-        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ErrorMatematico); }
+        } catch(Exception e) { System.out.println(e); return new Matriz(Matriz.ErrorMatriz.ERROR_MATEMATICO); }
     }
 }

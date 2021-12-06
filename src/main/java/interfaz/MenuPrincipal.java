@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  * Vista de la interfaz grafica principal del programa
  * @author amaury
  */
-public class Menu extends javax.swing.JFrame {
+public class MenuPrincipal extends JFrame {
     
     /**
      * Todos los objetos Matriz disponibles en el programa.
@@ -29,7 +29,7 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Vista del menu de la edicion de matrices.
      */
-    private MenuMatrices menuEditarMatrices;
+    private EditorMatrices menuEditarMatrices; //No se inicializa hasta que se llama
     /**
      * Clase que opera con las matrices.
      */
@@ -41,8 +41,9 @@ public class Menu extends javax.swing.JFrame {
      */
     enum TipoResultado
     {
-        Matriz,
-        Numero,
+        INVALIDO,
+        MATRIZ,
+        NUMERO,
     }
     
     /**
@@ -51,31 +52,33 @@ public class Menu extends javax.swing.JFrame {
      */
     enum Procedimiento
     {
-        SumaMatrices,
-        MultiplicacionMatrizEscalar,
-        MultiplicacionMatrices,
-        InversaMatrizGJ,
-        SolucionSistemaGJ,
-        DeterminanteMatriz,
-        SolucionSistemaCramer,
-        TranspuestaMatriz,
+        INVALIDO,
+        SUMA,
+        MULTIPLICACION_ESCALAR,
+        MULTIPLICACION_MATRIZ,
+        INVERSA_GJ,
+        SOLUCION_SISTEMA_GJ,
+        DETERMINANTE,
+        SOLUCION_SISTEMA_CRAMER,
+        TRANSPRUESTA,
     }
     
     /**
      * El resultado esperado de la operacion. Esto cambia segun al enum Procedimiento
      */
-    private TipoResultado resultadoEsperado = TipoResultado.Matriz;
+    private TipoResultado resultadoEsperado = TipoResultado.MATRIZ;
     /**
      * El procedimiento seleccionado actual
      */
-    private Procedimiento procedimientoSeleccionado = Procedimiento.SumaMatrices;
+    private Procedimiento procedimientoSeleccionado = Procedimiento.SUMA;
     
     /**
      * Creates new form MainMenu
      */
-    public Menu() {
+    public MenuPrincipal() {
         initComponents();
        
+        //No se puede hacer super para llamar a las siguientes lineas
         previsualizarMatriz(obtenerMatrizDeSeleccion(selectorMatriz));
         obtenerProcedimientoSeleccionado(selectorProcedimiento);
         mostrarArgumentosRelevantes();
@@ -101,11 +104,11 @@ public class Menu extends javax.swing.JFrame {
         titulo3 = new javax.swing.JLabel();
         calcularBoton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        visualizadorMatriz_R = new javax.swing.JTextArea();
+        visualizadorMatrizR = new javax.swing.JTextArea();
         selectorEscalar = new javax.swing.JSpinner();
         labelOperacion = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        visualizadorMatriz_E = new javax.swing.JTextArea();
+        visualizadorMatrizE = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -150,19 +153,19 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        visualizadorMatriz_R.setEditable(false);
-        visualizadorMatriz_R.setColumns(20);
-        visualizadorMatriz_R.setRows(5);
-        jScrollPane1.setViewportView(visualizadorMatriz_R);
+        visualizadorMatrizR.setEditable(false);
+        visualizadorMatrizR.setColumns(20);
+        visualizadorMatrizR.setRows(5);
+        jScrollPane1.setViewportView(visualizadorMatrizR);
 
         selectorEscalar.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
 
         labelOperacion.setText("operacion");
 
-        visualizadorMatriz_E.setEditable(false);
-        visualizadorMatriz_E.setColumns(20);
-        visualizadorMatriz_E.setRows(5);
-        jScrollPane2.setViewportView(visualizadorMatriz_E);
+        visualizadorMatrizE.setEditable(false);
+        visualizadorMatrizE.setColumns(20);
+        visualizadorMatrizE.setRows(5);
+        jScrollPane2.setViewportView(visualizadorMatrizE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,17 +182,15 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(calcularBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(selectorMatriz1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(labelOperacion)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(selectorMatriz2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(selectorEscalar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(selectorProcedimiento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(selectorMatriz1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelOperacion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(selectorMatriz2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(selectorEscalar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(selectorProcedimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(selectorMatriz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -235,12 +236,12 @@ public class Menu extends javax.swing.JFrame {
 
     private void editarMatrizBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarMatrizBotonActionPerformed
         // TODO add your handling code here:
-        presionarBoton_Editar();
+        presionarBotonEditar();
     }//GEN-LAST:event_editarMatrizBotonActionPerformed
 
     private void calcularBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularBotonActionPerformed
         // TODO add your handling code here:
-        presionarBoton_Calcular();
+        presionarBotonCalcular();
     }//GEN-LAST:event_calcularBotonActionPerformed
 
     private void selectorProcedimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectorProcedimientoActionPerformed
@@ -271,14 +272,18 @@ public class Menu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -287,7 +292,7 @@ public class Menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                new MenuPrincipal().setVisible(true);
             }
         });
     }
@@ -301,7 +306,7 @@ public class Menu extends javax.swing.JFrame {
     {
         switch(procedimientoSeleccionado)
         {
-            case SumaMatrices:
+            case SUMA:
                     labelOperacion.setText("+");
                     selectorMatriz1.setVisible(true);
                     selectorMatriz2.setVisible(true);
@@ -309,7 +314,7 @@ public class Menu extends javax.swing.JFrame {
                     
                     calcularBoton.setVisible(true);
                 break;
-            case MultiplicacionMatrizEscalar:
+            case MULTIPLICACION_ESCALAR:
                     labelOperacion.setText("*");
                     selectorMatriz1.setVisible(true);
                     selectorMatriz2.setVisible(false);
@@ -317,7 +322,7 @@ public class Menu extends javax.swing.JFrame {
                     
                     calcularBoton.setVisible(true);
                 break;
-            case MultiplicacionMatrices:
+            case MULTIPLICACION_MATRIZ:
                     labelOperacion.setText("*");
                     selectorMatriz1.setVisible(true);
                     selectorMatriz2.setVisible(true);
@@ -325,7 +330,7 @@ public class Menu extends javax.swing.JFrame {
                     
                     calcularBoton.setVisible(true);
                 break;
-            case InversaMatrizGJ:
+            case INVERSA_GJ:
                     labelOperacion.setText("^-1");
                     selectorMatriz1.setVisible(true);
                     selectorMatriz2.setVisible(false);
@@ -333,7 +338,7 @@ public class Menu extends javax.swing.JFrame {
                     
                     calcularBoton.setVisible(true);
                 break;
-            case SolucionSistemaGJ:
+            case SOLUCION_SISTEMA_GJ:
                     labelOperacion.setText("");
                     selectorMatriz1.setVisible(true);
                     selectorMatriz2.setVisible(false);
@@ -341,7 +346,7 @@ public class Menu extends javax.swing.JFrame {
                     
                     calcularBoton.setVisible(true);
                 break;
-            case DeterminanteMatriz:
+            case DETERMINANTE:
                     labelOperacion.setText("det");
                     selectorMatriz1.setVisible(true);
                     selectorMatriz2.setVisible(false);
@@ -349,7 +354,7 @@ public class Menu extends javax.swing.JFrame {
                     
                     calcularBoton.setVisible(true);
                 break;
-            case SolucionSistemaCramer:
+            case SOLUCION_SISTEMA_CRAMER:
                     labelOperacion.setText("");
                     selectorMatriz1.setVisible(true);
                     selectorMatriz2.setVisible(false);
@@ -357,7 +362,7 @@ public class Menu extends javax.swing.JFrame {
                     
                     calcularBoton.setVisible(true);
                 break;
-            case TranspuestaMatriz:
+            case TRANSPRUESTA:
                     labelOperacion.setText("T");
                     selectorMatriz1.setVisible(true);
                     selectorMatriz2.setVisible(false);
@@ -377,10 +382,10 @@ public class Menu extends javax.swing.JFrame {
     }
     
     /**
-     * Obtiene el objeto Matriz seleccionado sacado del selector JComboBox de
-     * la interfaz grafica
+     * Obtiene el objeto MATRIZ seleccionado sacado del selector JComboBox de
+ la interfaz grafica
      * @param seleccion JComboBox Selector de matriz
-     * @return Matriz El objeto matriz correspondiente a la seleccion
+     * @return MATRIZ El objeto matriz correspondiente a la seleccion
      */
     private Matriz obtenerMatrizDeSeleccion(javax.swing.JComboBox<String> seleccion)
     {
@@ -418,36 +423,36 @@ public class Menu extends javax.swing.JFrame {
         switch(seleccion.getSelectedItem().toString())
         {
             case "Suma de dos matrices":
-                resultadoEsperado = TipoResultado.Matriz;
-                procedimientoSeleccionado = Procedimiento.SumaMatrices;
+                resultadoEsperado = TipoResultado.MATRIZ;
+                procedimientoSeleccionado = Procedimiento.SUMA;
                 break;
             case "Multiplicacion por Escalar":
-                resultadoEsperado = TipoResultado.Matriz;
-                procedimientoSeleccionado = Procedimiento.MultiplicacionMatrizEscalar;
+                resultadoEsperado = TipoResultado.MATRIZ;
+                procedimientoSeleccionado = Procedimiento.MULTIPLICACION_ESCALAR;
                 break;
             case "Multiplicacion entre Matrices":
-                resultadoEsperado = TipoResultado.Matriz;
-                procedimientoSeleccionado = Procedimiento.MultiplicacionMatrices;
+                resultadoEsperado = TipoResultado.MATRIZ;
+                procedimientoSeleccionado = Procedimiento.MULTIPLICACION_MATRIZ;
                 break;
             case "Inversa de Matriz por Gauss-Jordan":
-                resultadoEsperado = TipoResultado.Matriz;
-                procedimientoSeleccionado = Procedimiento.InversaMatrizGJ;
+                resultadoEsperado = TipoResultado.MATRIZ;
+                procedimientoSeleccionado = Procedimiento.INVERSA_GJ;
                 break;
             case "Solucion Sistema de Ecuaciones por Gauss-Jordan":
-                resultadoEsperado = TipoResultado.Matriz;
-                procedimientoSeleccionado = Procedimiento.SolucionSistemaGJ;
+                resultadoEsperado = TipoResultado.MATRIZ;
+                procedimientoSeleccionado = Procedimiento.SOLUCION_SISTEMA_GJ;
                 break;
             case "Determinante de Matriz":
-                resultadoEsperado = TipoResultado.Numero;
-                procedimientoSeleccionado = Procedimiento.DeterminanteMatriz;
+                resultadoEsperado = TipoResultado.NUMERO;
+                procedimientoSeleccionado = Procedimiento.DETERMINANTE;
                 break;
             case "Solucion Sistema de Ecuaciones por Cramer":
-                resultadoEsperado = TipoResultado.Matriz;
-                procedimientoSeleccionado = Procedimiento.SolucionSistemaCramer;
+                resultadoEsperado = TipoResultado.MATRIZ;
+                procedimientoSeleccionado = Procedimiento.SOLUCION_SISTEMA_CRAMER;
                 break;
             case "Transpuesta de Matriz":
-                resultadoEsperado = TipoResultado.Matriz;
-                procedimientoSeleccionado = Procedimiento.TranspuestaMatriz;
+                resultadoEsperado = TipoResultado.MATRIZ;
+                procedimientoSeleccionado = Procedimiento.TRANSPRUESTA;
                 break;
             default:
                 break;
@@ -457,33 +462,44 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Realiza el procedimiento seleccionado, pasando como parametros los argumentos
      * deseados. Devuelve la respuesta en forma de Matriz, aunque sea un solo numero.
-     * @param parametros Object[] Aqui se puede introducir objetos Matriz o flotantes
-     * @return Matriz Respuesta obtenida del procedimiento.
+     * @param parametros Object[] Aqui se puede introducir objetos MATRIZ o flotantes
+     * @return MATRIZ Respuesta obtenida del procedimiento.
      */
     private Matriz realizarProcedimiento(Object[] parametros)
     {
         //System.out.println(seleccion.getSelectedItem().toString());
+        Matriz retorno;
         switch(procedimientoSeleccionado)
         {
-            case SumaMatrices:
-                return manipuladorMatrices.sumaEntreMatrices((Matriz)parametros[0], (Matriz)parametros[1]);
-            case MultiplicacionMatrizEscalar:
-                return manipuladorMatrices.multiplicacionPorEscalar((Matriz)parametros[0], (float)parametros[2]);
-            case MultiplicacionMatrices:
-                return manipuladorMatrices.productoEntreMatrices((Matriz)parametros[0], (Matriz)parametros[1]);
-            case InversaMatrizGJ:
-                return manipuladorMatrices.calcularInversa_GJ((Matriz)parametros[0]);
-            case SolucionSistemaGJ:
-                return manipuladorMatrices.solucionarSistema_GJ((Matriz)parametros[0]);
-            case DeterminanteMatriz:
-                return manipuladorMatrices.calcularDeterminante((Matriz)parametros[0]);
-            case SolucionSistemaCramer:
-                return manipuladorMatrices.solucionarSistema_Cramer((Matriz)parametros[0]);
-            case TranspuestaMatriz:
-                return manipuladorMatrices.calcularTranspuesta((Matriz)parametros[0]);
+            case SUMA:
+                retorno = manipuladorMatrices.sumaEntreMatrices((Matriz)parametros[0], (Matriz)parametros[1]);
+                break;
+            case MULTIPLICACION_ESCALAR:
+                retorno = manipuladorMatrices.multiplicacionPorEscalar((Matriz)parametros[0], (float)parametros[2]);
+                break;
+            case MULTIPLICACION_MATRIZ:
+                retorno = manipuladorMatrices.productoEntreMatrices((Matriz)parametros[0], (Matriz)parametros[1]);
+                break;
+            case INVERSA_GJ:
+                retorno = manipuladorMatrices.calcularInversa_GJ((Matriz)parametros[0]);
+                break;
+            case SOLUCION_SISTEMA_GJ:
+                retorno = manipuladorMatrices.solucionarSistemaGJ((Matriz)parametros[0]);
+                break;
+            case DETERMINANTE:
+                retorno = manipuladorMatrices.calcularDeterminante((Matriz)parametros[0]);
+                break;
+            case SOLUCION_SISTEMA_CRAMER:
+                retorno = manipuladorMatrices.solucionarSistemaCramer((Matriz)parametros[0]);
+                break;
+            case TRANSPRUESTA:
+                retorno = manipuladorMatrices.calcularTranspuesta((Matriz)parametros[0]);
+                break;
             default:
-                return null;
+                retorno = null;
+                break;
         }
+        return retorno;
     }
     
     /**
@@ -492,7 +508,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public void guardarCambiosMatriz()
     {
-        Matriz guardado = menuEditarMatrices.getMatriz();
+        final Matriz guardado = menuEditarMatrices.getMatriz();
         
         switch(guardado.getId())
         {
@@ -528,11 +544,11 @@ public class Menu extends javax.swing.JFrame {
      * Obtiene la matriz seleccionada a editar y la envia como parametro a
      * la vista del menu editor de matrices, y muestra el menu.
      */
-    private void presionarBoton_Editar()
+    private void presionarBotonEditar()
     {
-        Matriz matrizSeleccionada = obtenerMatrizDeSeleccion(selectorMatriz);
+        final Matriz matrizSeleccionada = obtenerMatrizDeSeleccion(selectorMatriz);
         
-        menuEditarMatrices = new MenuMatrices(matrizSeleccionada, this);
+        menuEditarMatrices = new EditorMatrices(matrizSeleccionada, this);
         menuEditarMatrices.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         menuEditarMatrices.setVisible(true);
     }
@@ -542,11 +558,15 @@ public class Menu extends javax.swing.JFrame {
      * seleccionado. Al obtener una respuesta, la envia a que se imprima con
      * los otros metodos. Si hay un error, lo envia a procesar errores.
      */
-    private void presionarBoton_Calcular()
+    private void presionarBotonCalcular()
     {
-        Matriz matrizSeleccionada1 = obtenerMatrizDeSeleccion(selectorMatriz1);
-        Matriz matrizSeleccionada2 = obtenerMatrizDeSeleccion(selectorMatriz2);
+        final Matriz matrizSeleccionada1 = obtenerMatrizDeSeleccion(selectorMatriz1);
+        final Matriz matrizSeleccionada2 = obtenerMatrizDeSeleccion(selectorMatriz2);
         
+        //Aqui se pudo haber creado una clase para representar el arreglo
+        //pero no se considero necesario debido a que es el unico lugar donde
+        //se utiliza y no hay sentido de escalabilidad. Los indice 0 y 1 siempre
+        //seran matrices y el indice 2 sera siempre el escalar flotante.
         Object[] parametros = new Object[3];
             parametros[0] = matrizSeleccionada1;
             parametros[1] = matrizSeleccionada2;
@@ -556,47 +576,47 @@ public class Menu extends javax.swing.JFrame {
         
         Matriz resultado = realizarProcedimiento(parametros);
         
-        if (resultado.getError() != Matriz.ErrorMatriz.Ninguno)
+        if (resultado.getError() != Matriz.ErrorMatriz.NINGUNO)
         {
-            mostrarResultado_Error(resultado.getError());
+            mostrarResultadoError(resultado.getError());
             return;
         }
         
-        if (resultadoEsperado == TipoResultado.Matriz)
+        if (resultadoEsperado == TipoResultado.MATRIZ)
         {
-            mostrarResultado_Matriz(resultado);
+            mostrarResultadoMatriz(resultado);
         }
-        else if (resultadoEsperado == TipoResultado.Numero)
+        else if (resultadoEsperado == TipoResultado.NUMERO)
         {
-            mostrarResultado_Numero(resultado.getElemento(0, 0));
+            mostrarResultadoNumero(resultado.getValor(0, 0));
         }
     }
     
     /**
      * Previsualiza la matriz a editar en la interfaz grafica.
-     * @param matriz Matriz La matriz a mostrar en la interfaz grafica.
+     * @param matriz MATRIZ La matriz a mostrar en la interfaz grafica.
      */
     private void previsualizarMatriz(Matriz matriz)
     {
-        visualizadorMatriz_E.setText("");
+        visualizadorMatrizE.setText("");
         ArrayList<String> visualizacion = matriz.mostrarElemento(-1, -1);
         for (int i = 0; i < visualizacion.size(); i++)
         {
-            visualizadorMatriz_E.setText(visualizadorMatriz_E.getText() + visualizacion.get(i));
+            visualizadorMatrizE.setText(visualizadorMatrizE.getText() + visualizacion.get(i));
         }
     }
     
     /**
      * Muestra el resultado final de la operacion realizada
-     * @param matriz Matriz La matriz obtenida del resultado.
+     * @param matriz MATRIZ La matriz obtenida del resultado.
      */
-    private void mostrarResultado_Matriz(Matriz matriz)
+    private void mostrarResultadoMatriz(Matriz matriz)
     {
-        visualizadorMatriz_R.setText("");
+        visualizadorMatrizR.setText("");
         ArrayList<String> visualizacion = matriz.mostrarElemento(-1, -1);
         for (int i = 0; i < visualizacion.size(); i++)
         {
-            visualizadorMatriz_R.setText(visualizadorMatriz_R.getText() + visualizacion.get(i));
+            visualizadorMatrizR.setText(visualizadorMatrizR.getText() + visualizacion.get(i));
         }
     }
     
@@ -604,9 +624,9 @@ public class Menu extends javax.swing.JFrame {
      * Muestra el resultado final de la operacion realizada.
      * @param numero float El numero obtenido del resultado.
      */
-    private void mostrarResultado_Numero(float numero)
+    private void mostrarResultadoNumero(float numero)
     {
-        visualizadorMatriz_R.setText(""+numero);
+        visualizadorMatrizR.setText(""+numero);
     }
     
     /**
@@ -615,29 +635,29 @@ public class Menu extends javax.swing.JFrame {
      * usuario sobre el error.
      * @param error ErrorMatriz Tipo de error al hacer la operacion
      */
-    private void mostrarResultado_Error(Matriz.ErrorMatriz error)
+    private void mostrarResultadoError(Matriz.ErrorMatriz error)
     {
-        String mensajeError = "";
+        String mensajeError;
         switch(error)
         {
-            case NoCuadrada:
+            case NO_CUADRADA:
                 mensajeError = "La matriz introducida no es cuadrada.\n"
                               +"Por favor, introduzca una que si lo sea";
                 break;
-            case Singular:
+            case SINGULAR:
                 mensajeError = "La matriz introducida es singular.\n"
                               +"Por favor, introduzca una que no lo sea";
                 break;
-            case MetodoIncompatible:
+            case METODO_INCOMPATIBLE:
                 mensajeError = "La matriz introducida es incompatible con el metodo.\n"
                               +"Por favor, introduzca una que si lo sea.\n"
                               +"(Los metodos que solucionan sistemas no aceptan matrices < 2x3)";
                 break;
-            case DimensionesIncompatibles:
+            case DIMENSIONES_INCOMPATIBLES:
                 mensajeError = "Las dimensiones de las matrices introducidas no son correctas.\n"
                               +"Por favor, utilice matrices con dimensiones compatibles";
                 break;
-            case ErrorMatematico:
+            case ERROR_MATEMATICO:
                 mensajeError = "Hubo un error matematico.\n"
                               +"Por favor, verifique los valores introducidos,\n"
                               +"introduzca una matriz diferente o intente con otro metodo";
@@ -667,7 +687,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel titulo1;
     private javax.swing.JLabel titulo2;
     private javax.swing.JLabel titulo3;
-    private javax.swing.JTextArea visualizadorMatriz_E;
-    private javax.swing.JTextArea visualizadorMatriz_R;
+    private javax.swing.JTextArea visualizadorMatrizE;
+    private javax.swing.JTextArea visualizadorMatrizR;
     // End of variables declaration//GEN-END:variables
 }

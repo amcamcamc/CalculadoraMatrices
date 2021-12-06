@@ -25,8 +25,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Calculadora de Matrices
+   <div id="projectname">Calculadora de Matrices<span id="projectnumber">&#160;1</span>
    </div>
+   <div id="projectbrief">Calculadora de matrices con interfaz grafica en Java</div>
   </td>
  </tr>
  </tbody>
@@ -105,12 +106,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a881c6341297e40ed73932cc58533022d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9fe624bf088144be1de181a654fcf30"><td class="memItemLeft" align="right" valign="top"><a class="el" href="enummatrices_1_1_matriz_1_1_error_matriz.html">ErrorMatriz</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#ab9fe624bf088144be1de181a654fcf30">getError</a> ()</td></tr>
 <tr class="separator:ab9fe624bf088144be1de181a654fcf30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7968c65a345c4851280b48493f8890a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#ad7968c65a345c4851280b48493f8890a">setElemento</a> (int fila, int columna, float valor)</td></tr>
-<tr class="separator:ad7968c65a345c4851280b48493f8890a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a249de0c272c94292ca403790233cddcc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#a249de0c272c94292ca403790233cddcc">getElemento</a> (int fila, int columna)</td></tr>
-<tr class="separator:a249de0c272c94292ca403790233cddcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01992d0a51459641a79309da6a103016"><td class="memItemLeft" align="right" valign="top">float[][]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#a01992d0a51459641a79309da6a103016">getElementos</a> ()</td></tr>
-<tr class="separator:a01992d0a51459641a79309da6a103016"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf869ba6e8c45d8befabb34f0eeca7fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#acf869ba6e8c45d8befabb34f0eeca7fd">setValor</a> (int fila, int columna, float valor)</td></tr>
+<tr class="separator:acf869ba6e8c45d8befabb34f0eeca7fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8e2749a7a11db30252bc0eeee76d7cf"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#aa8e2749a7a11db30252bc0eeee76d7cf">getValor</a> (int fila, int columna)</td></tr>
+<tr class="separator:aa8e2749a7a11db30252bc0eeee76d7cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a857359b93b3b528a7c6dadc72c4cd099"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#a857359b93b3b528a7c6dadc72c4cd099">setValores</a> (float[][] elementos, int maxFilas, int maxColumnas)</td></tr>
+<tr class="separator:a857359b93b3b528a7c6dadc72c4cd099"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab149a910d9d82b851954b88f6e7a4391"><td class="memItemLeft" align="right" valign="top">float[][]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#ab149a910d9d82b851954b88f6e7a4391">getValores</a> ()</td></tr>
+<tr class="separator:ab149a910d9d82b851954b88f6e7a4391"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa678944990b13f66eb70630e65b3ea2e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#aa678944990b13f66eb70630e65b3ea2e">getFilas</a> ()</td></tr>
 <tr class="separator:aa678944990b13f66eb70630e65b3ea2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa732cf09717f00534825afddc3cfd64e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#aa732cf09717f00534825afddc3cfd64e">getColumnas</a> ()</td></tr>
@@ -131,10 +134,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9d550f551fd34da8f53163a480b1bf86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e1f0dff6f8c606d4cf5838e8262db4d"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#a0e1f0dff6f8c606d4cf5838e8262db4d">esMatrizIdentidad</a> ()</td></tr>
 <tr class="separator:a0e1f0dff6f8c606d4cf5838e8262db4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a518fb6a205d32d6dccf7c2ff06837ca1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#a518fb6a205d32d6dccf7c2ff06837ca1">asignarElementos</a> (float[][] elementos, int maxFilas, int maxColumnas)</td></tr>
-<tr class="separator:a518fb6a205d32d6dccf7c2ff06837ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f0b49d72b10e334196d2eb19dd0301d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#a5f0b49d72b10e334196d2eb19dd0301d">redondearElementos</a> ()</td></tr>
-<tr class="separator:a5f0b49d72b10e334196d2eb19dd0301d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d9353a95d0022a1178197a6be81424f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmatrices_1_1_matriz.html#a8d9353a95d0022a1178197a6be81424f">redondearValores</a> ()</td></tr>
+<tr class="separator:a8d9353a95d0022a1178197a6be81424f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Clase <a class="el" href="classmatrices_1_1_matriz.html">Matriz</a>. Aqui se hace la abstraccion de lo que es un objeto <a class="el" href="classmatrices_1_1_matriz.html">Matriz</a> y se declaran sus propiedades que van a ser utilizadas para hacer operaciones con ellas </p><dl class="section author"><dt>Author</dt><dd>amaury </dd></dl>
@@ -255,46 +256,6 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a518fb6a205d32d6dccf7c2ff06837ca1" name="a518fb6a205d32d6dccf7c2ff06837ca1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a518fb6a205d32d6dccf7c2ff06837ca1">&#9670;&nbsp;</a></span>asignarElementos()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void matrices.Matriz.asignarElementos </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>elementos</em>[][], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>maxFilas</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>maxColumnas</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >Asigna los elementos de la matriz utilizando un arreglo bidimensional </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">elementos</td><td>float[][] Arreglo bidimensional de numeros </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="ae359697fd7912ab58c48dc5314c5fb41" name="ae359697fd7912ab58c48dc5314c5fb41"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae359697fd7912ab58c48dc5314c5fb41">&#9670;&nbsp;</a></span>dimensionesIguales()</h2>
 
@@ -347,7 +308,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Compara todos los elementos de dos matrices para concluir si son iguales o no. </p><dl class="params"><dt>Parameters</dt><dd>
+<pre class="fragment">  Compara todos los valores de dos matrices para concluir si son
+</pre><p> iguales o no. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">comparacion</td><td><a class="el" href="classmatrices_1_1_matriz.html">Matriz</a> a comparar </td></tr>
   </table>
@@ -411,60 +373,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a249de0c272c94292ca403790233cddcc" name="a249de0c272c94292ca403790233cddcc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a249de0c272c94292ca403790233cddcc">&#9670;&nbsp;</a></span>getElemento()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float matrices.Matriz.getElemento </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>fila</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>columna</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >Retorna el valor flotante del elemento de la matriz posicionado en [fila][columna] </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fila</td><td></td></tr>
-    <tr><td class="paramname">columna</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a id="a01992d0a51459641a79309da6a103016" name="a01992d0a51459641a79309da6a103016"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01992d0a51459641a79309da6a103016">&#9670;&nbsp;</a></span>getElementos()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float[][] matrices.Matriz.getElementos </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >Retorna todos los elementos de la matriz. </p><dl class="section return"><dt>Returns</dt><dd>float[][] El arreglo de elementos. Orden [fila][columna] </dd></dl>
-
-</div>
-</div>
 <a id="ab9fe624bf088144be1de181a654fcf30" name="ab9fe624bf088144be1de181a654fcf30"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab9fe624bf088144be1de181a654fcf30">&#9670;&nbsp;</a></span>getError()</h2>
 
@@ -519,6 +427,60 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa8e2749a7a11db30252bc0eeee76d7cf" name="aa8e2749a7a11db30252bc0eeee76d7cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8e2749a7a11db30252bc0eeee76d7cf">&#9670;&nbsp;</a></span>getValor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float matrices.Matriz.getValor </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fila</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>columna</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Retorna el valor flotante del elemento de la matriz posicionado en [fila][columna] </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fila</td><td></td></tr>
+    <tr><td class="paramname">columna</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="ab149a910d9d82b851954b88f6e7a4391" name="ab149a910d9d82b851954b88f6e7a4391"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab149a910d9d82b851954b88f6e7a4391">&#9670;&nbsp;</a></span>getValores()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float[][] matrices.Matriz.getValores </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Retorna todos los valores de la matriz. </p><dl class="section return"><dt>Returns</dt><dd>float[][] El arreglo de valores. Orden [fila][columna] </dd></dl>
+
+</div>
+</div>
 <a id="a62ebd6f852131f6da9f0f1ab041493a3" name="a62ebd6f852131f6da9f0f1ab041493a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a62ebd6f852131f6da9f0f1ab041493a3">&#9670;&nbsp;</a></span>imprimir()</h2>
 
@@ -569,36 +531,36 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>ArrayList&lt;String&gt; La lista de cadenas que se requieren para dibujar la representacion de la matriz, incluyendo la representacion de la seleccion del elemento deseado. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ArrayList String La lista de cadenas que se requieren para dibujar la representacion de la matriz, incluyendo la representacion de la seleccion del elemento deseado. </dd></dl>
 
 </div>
 </div>
-<a id="a5f0b49d72b10e334196d2eb19dd0301d" name="a5f0b49d72b10e334196d2eb19dd0301d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f0b49d72b10e334196d2eb19dd0301d">&#9670;&nbsp;</a></span>redondearElementos()</h2>
+<a id="a8d9353a95d0022a1178197a6be81424f" name="a8d9353a95d0022a1178197a6be81424f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d9353a95d0022a1178197a6be81424f">&#9670;&nbsp;</a></span>redondearValores()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void matrices.Matriz.redondearElementos </td>
+          <td class="memname">void matrices.Matriz.redondearValores </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Redondea los elementos de la matriz 2 puntos decimales. Es requerido para las pruebas unitarias porque a veces se considera que los resultados no son iguales aunque lo unico que tengan diferente es el octavo numero decimal. </p>
+<p >Redondea los valores de la matriz 2 puntos decimales. Es requerido para las pruebas unitarias porque a veces se considera que los resultados no son iguales aunque lo unico que tengan diferente es el octavo numero decimal. </p>
 
 </div>
 </div>
-<a id="ad7968c65a345c4851280b48493f8890a" name="ad7968c65a345c4851280b48493f8890a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7968c65a345c4851280b48493f8890a">&#9670;&nbsp;</a></span>setElemento()</h2>
+<a id="acf869ba6e8c45d8befabb34f0eeca7fd" name="acf869ba6e8c45d8befabb34f0eeca7fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf869ba6e8c45d8befabb34f0eeca7fd">&#9670;&nbsp;</a></span>setValor()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void matrices.Matriz.setElemento </td>
+          <td class="memname">void matrices.Matriz.setValor </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>fila</em>, </td>
@@ -627,6 +589,46 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">fila</td><td></td></tr>
     <tr><td class="paramname">columna</td><td></td></tr>
     <tr><td class="paramname">valor</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a857359b93b3b528a7c6dadc72c4cd099" name="a857359b93b3b528a7c6dadc72c4cd099"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a857359b93b3b528a7c6dadc72c4cd099">&#9670;&nbsp;</a></span>setValores()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void matrices.Matriz.setValores </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>elementos</em>[][], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxFilas</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxColumnas</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Asigna los valores de la matriz utilizando un arreglo bidimensional </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">elementos</td><td>float[][] Arreglo bidimensional de numeros </td></tr>
   </table>
   </dd>
 </dl>

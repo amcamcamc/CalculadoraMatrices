@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['productoentrematrices_0',['productoEntreMatrices',['../classmatrices_1_1_operador_matrices.html#a71b714f0c91a1d962179e7dc7cb96532',1,'matrices::OperadorMatrices']]]
+  ['redondearvalores_0',['redondearValores',['../classmatrices_1_1_matriz.html#a8d9353a95d0022a1178197a6be81424f',1,'matrices::Matriz']]]
 ];

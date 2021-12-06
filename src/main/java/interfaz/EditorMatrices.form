@@ -30,7 +30,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="selectorValor" pref="97" max="32767" attributes="0"/>
+                              <Component id="selectorValor" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -46,31 +46,32 @@
                               </Group>
                           </Group>
                           <Component id="aplicarBoton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="actualizar" alignment="0" max="32767" attributes="0"/>
+                          <Component id="seleccionBoton" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="izquierdaBoton" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="seleccionBoton" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="derechaBoton" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="abajoBoton" min="-2" max="-2" attributes="0"/>
-                                          <Component id="arribaBoton" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
                                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="labelFila" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="labelColumna" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="izquierdaBoton" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="arribaBoton" pref="50" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="abajoBoton" max="32767" attributes="0"/>
+                                              <Component id="cruceta" pref="50" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="derechaBoton" min="-2" pref="50" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="actualizar" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="463" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="461" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -103,21 +104,23 @@
                           <Component id="selectorValor" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="seleccionBoton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelFila" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelColumna" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="arribaBoton" min="-2" max="-2" attributes="0"/>
+                      <Component id="arribaBoton" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="izquierdaBoton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="seleccionBoton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="derechaBoton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="izquierdaBoton" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="derechaBoton" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="cruceta" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="abajoBoton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="58" max="32767" attributes="0"/>
+                      <Component id="abajoBoton" min="-2" pref="50" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="aplicarBoton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
@@ -210,6 +213,12 @@
     <Component class="javax.swing.JButton" name="derechaBoton">
       <Properties>
         <Property name="text" type="java.lang.String" value="&gt;"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[33, 36]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[33, 36]"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="derechaBotonActionPerformed"/>
@@ -218,6 +227,9 @@
     <Component class="javax.swing.JButton" name="izquierdaBoton">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[33, 36]"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="izquierdaBotonActionPerformed"/>
@@ -230,7 +242,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="seleccionBoton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="O"/>
+        <Property name="text" type="java.lang.String" value="CAMBIAR VALOR"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seleccionBotonActionPerformed"/>
@@ -256,10 +268,19 @@
     </Component>
     <Component class="javax.swing.JButton" name="actualizar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
+        <Property name="text" type="java.lang.String" value="CAMBIAR DIMENS."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="actualizarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cruceta">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="O"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="crucetaActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

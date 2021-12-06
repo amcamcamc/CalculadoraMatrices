@@ -34,19 +34,16 @@
                   <Component id="calcularBoton" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="selectorMatriz1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="labelOperacion" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="selectorMatriz2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="selectorEscalar" min="-2" pref="82" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="selectorProcedimiento" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="selectorMatriz1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="labelOperacion" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="selectorMatriz2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="selectorEscalar" min="-2" pref="82" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="selectorProcedimiento" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="selectorMatriz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -226,7 +223,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="visualizadorMatriz_R">
+        <Component class="javax.swing.JTextArea" name="visualizadorMatrizR">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
@@ -254,7 +251,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="visualizadorMatriz_E">
+        <Component class="javax.swing.JTextArea" name="visualizadorMatrizE">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>

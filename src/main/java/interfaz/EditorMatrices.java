@@ -2,12 +2,13 @@ package interfaz;
 
 import matrices.Matriz;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 
 /**
  * Vista de la interfaz grafica del menu editor de matrices del programa
  * @author amaury
  */
-public class MenuMatrices extends javax.swing.JFrame {
+public class EditorMatrices extends JFrame {
 
     /**
      * Objeto Matriz que esta siendo editado
@@ -29,16 +30,20 @@ public class MenuMatrices extends javax.swing.JFrame {
      * El numero de columna actual seleccionado
      */
     private int columnaActual;
-    private Menu menuCorrespondiente;
+    /**
+     * El menu principal. Esto es para redireccionar el guardado cuando se 
+     * cierre este editor
+     */
+    private MenuPrincipal menuPadre;
     
     /**
      * Creates new form MenuMatrices
      * @param matrizAEditar Matriz objeto matriz a editar
-     * @param menu Menu el objeto de la vista menu de donde se crea esta vista.
+     * @param menu MenuPrincipal el objeto de la vista menu de donde se crea esta vista.
      */
-    public MenuMatrices(Matriz matrizAEditar, Menu menu) {
+    public EditorMatrices(Matriz matrizAEditar, MenuPrincipal menu) {
         initComponents();
-        menuCorrespondiente = menu;
+        menuPadre = menu;
         cargarMatriz(matrizAEditar);
     }
 
@@ -70,6 +75,7 @@ public class MenuMatrices extends javax.swing.JFrame {
         labelColumna = new javax.swing.JLabel();
         aplicarBoton = new javax.swing.JButton();
         actualizar = new javax.swing.JButton();
+        cruceta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,6 +115,8 @@ public class MenuMatrices extends javax.swing.JFrame {
         });
 
         derechaBoton.setText(">");
+        derechaBoton.setMaximumSize(new java.awt.Dimension(33, 36));
+        derechaBoton.setMinimumSize(new java.awt.Dimension(33, 36));
         derechaBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 derechaBotonActionPerformed(evt);
@@ -116,6 +124,7 @@ public class MenuMatrices extends javax.swing.JFrame {
         });
 
         izquierdaBoton.setText("<");
+        izquierdaBoton.setPreferredSize(new java.awt.Dimension(33, 36));
         izquierdaBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 izquierdaBotonActionPerformed(evt);
@@ -124,7 +133,7 @@ public class MenuMatrices extends javax.swing.JFrame {
 
         jLabel4.setText("Valor Actual");
 
-        seleccionBoton.setText("O");
+        seleccionBoton.setText("CAMBIAR VALOR");
         seleccionBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seleccionBotonActionPerformed(evt);
@@ -142,10 +151,18 @@ public class MenuMatrices extends javax.swing.JFrame {
             }
         });
 
-        actualizar.setText("ACTUALIZAR");
+        actualizar.setText("CAMBIAR DIMENS.");
         actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 actualizarActionPerformed(evt);
+            }
+        });
+
+        cruceta.setText("O");
+        cruceta.setEnabled(false);
+        cruceta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crucetaActionPerformed(evt);
             }
         });
 
@@ -160,7 +177,7 @@ public class MenuMatrices extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(selectorValor, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                                .addComponent(selectorValor)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -172,25 +189,26 @@ public class MenuMatrices extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addComponent(aplicarBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(actualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(seleccionBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(izquierdaBoton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(seleccionBoton)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(derechaBoton))
-                                            .addComponent(abajoBoton)
-                                            .addComponent(arribaBoton)))
                                     .addComponent(jLabel3)
                                     .addComponent(labelFila)
-                                    .addComponent(labelColumna))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(actualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(labelColumna)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(izquierdaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(arribaBoton, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(abajoBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(cruceta, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(derechaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 7, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -216,20 +234,22 @@ public class MenuMatrices extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(selectorValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seleccionBoton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelFila)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelColumna)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(arribaBoton)
+                        .addComponent(arribaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(izquierdaBoton)
-                            .addComponent(seleccionBoton)
-                            .addComponent(derechaBoton))
+                            .addComponent(izquierdaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(derechaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cruceta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(abajoBoton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                        .addComponent(abajoBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
                         .addComponent(aplicarBoton))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -244,7 +264,7 @@ public class MenuMatrices extends javax.swing.JFrame {
      */
     private void aplicarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarBotonActionPerformed
         // TODO add your handling code here:
-        menuCorrespondiente.guardarCambiosMatriz();
+        menuPadre.guardarCambiosMatriz();
         this.dispose();
     }//GEN-LAST:event_aplicarBotonActionPerformed
 
@@ -306,7 +326,7 @@ public class MenuMatrices extends javax.swing.JFrame {
      */
     private void seleccionBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionBotonActionPerformed
         // TODO add your handling code here:
-        matrizEditada.setElemento(filaActual, columnaActual, (float)selectorValor.getValue());
+        matrizEditada.setValor(filaActual, columnaActual, (float)selectorValor.getValue());
         actualizarMatriz();
     }//GEN-LAST:event_seleccionBotonActionPerformed
 
@@ -320,6 +340,10 @@ public class MenuMatrices extends javax.swing.JFrame {
         // TODO add your handling code here:
         actualizarMatriz();
     }//GEN-LAST:event_actualizarActionPerformed
+
+    private void crucetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crucetaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crucetaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -338,21 +362,23 @@ public class MenuMatrices extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuMatrices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditorMatrices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuMatrices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditorMatrices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuMatrices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditorMatrices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuMatrices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditorMatrices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new MenuMatrices().setVisible(true);
+                //new EditorMatrices().setVisible(true);
             }
         });
     }
@@ -371,7 +397,7 @@ public class MenuMatrices extends javax.swing.JFrame {
         titulo.setText("EDITANDO MATRIZ "+matrizEditada.getId());
         selectorFilas.setValue(matrizEditada.getFilas());
         selectorColumnas.setValue(matrizEditada.getColumnas());
-        selectorValor.setValue(matrizEditada.getElemento(filaActual, columnaActual));
+        selectorValor.setValue(matrizEditada.getValor(filaActual, columnaActual));
         
         dimensionFilas = matrizEditada.getFilas();
         dimensionColumnas = matrizEditada.getColumnas();
@@ -398,7 +424,7 @@ public class MenuMatrices extends javax.swing.JFrame {
             cargarMatriz(matrizEditada);
         }
         
-        selectorValor.setValue(matrizEditada.getElemento(filaActual, columnaActual));
+        selectorValor.setValue(matrizEditada.getValor(filaActual, columnaActual));
 
         labelFila.setText("Fila actual: "+filaActual);
         labelColumna.setText("Columna actual: "+columnaActual);
@@ -434,6 +460,7 @@ public class MenuMatrices extends javax.swing.JFrame {
     private javax.swing.JButton actualizar;
     private javax.swing.JButton aplicarBoton;
     private javax.swing.JButton arribaBoton;
+    private javax.swing.JButton cruceta;
     private javax.swing.JButton derechaBoton;
     private javax.swing.JButton izquierdaBoton;
     private javax.swing.JLabel jLabel1;

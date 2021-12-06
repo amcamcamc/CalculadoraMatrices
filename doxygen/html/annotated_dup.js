@@ -1,9 +1,9 @@
 var annotated_dup =
 [
     [ "interfaz", null, [
+      [ "EditorMatrices", "classinterfaz_1_1_editor_matrices.html", "classinterfaz_1_1_editor_matrices" ],
       [ "Main", "classinterfaz_1_1_main.html", null ],
-      [ "Menu", "classinterfaz_1_1_menu.html", "classinterfaz_1_1_menu" ],
-      [ "MenuMatrices", "classinterfaz_1_1_menu_matrices.html", "classinterfaz_1_1_menu_matrices" ]
+      [ "MenuPrincipal", "classinterfaz_1_1_menu_principal.html", "classinterfaz_1_1_menu_principal" ]
     ] ],
     [ "matrices", null, [
       [ "Matriz", "classmatrices_1_1_matriz.html", "classmatrices_1_1_matriz" ],
