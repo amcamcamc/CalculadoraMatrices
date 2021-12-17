@@ -1,9 +1,10 @@
 package interfaz;
-import matrices.*;
+
+import modelo.Matriz;
+import controlador.*;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  * Vista de la interfaz grafica principal del programa
@@ -11,77 +12,14 @@ import javax.swing.JOptionPane;
  */
 public class MenuPrincipal extends JFrame {
     
-    /**
-     * Todos los objetos Matriz disponibles en el programa.
-     * Estan por defecto como matrices de 3x3 vacias.
-     * Solo hay identificadores hasta la letra H. No se pueden utilizar las letras
-     * R, T. Mas informacion en la clase Matriz.
-     */
-    private Matriz matrizA = new Matriz(3,3,"A");
-    private Matriz matrizB = new Matriz(3,3,"B");
-    private Matriz matrizC = new Matriz(3,3,"C");
-    private Matriz matrizD = new Matriz(3,3,"D");
-    private Matriz matrizE = new Matriz(3,3,"E");
-    private Matriz matrizF = new Matriz(3,3,"F");
-    private Matriz matrizG = new Matriz(3,3,"G");
-    private Matriz matrizH = new Matriz(3,3,"H");
-    
-    /**
-     * Vista del menu de la edicion de matrices.
-     */
-    private EditorMatrices menuEditarMatrices; //No se inicializa hasta que se llama
-    /**
-     * Clase que opera con las matrices.
-     */
-    private OperadorMatrices manipuladorMatrices = new OperadorMatrices();
-    
-    /**
-     * El tipo de resultado es importante para saber si lo que se imprime
-     * es una matriz o un flotante.
-     */
-    enum TipoResultado
-    {
-        INVALIDO,
-        MATRIZ,
-        NUMERO,
-    }
-    
-    /**
-     * El nombre del procedimiento u operacion a realizar con la matriz o matrices
-     * seleccionadas.
-     */
-    enum Procedimiento
-    {
-        INVALIDO,
-        SUMA,
-        MULTIPLICACION_ESCALAR,
-        MULTIPLICACION_MATRIZ,
-        INVERSA_GJ,
-        SOLUCION_SISTEMA_GJ,
-        DETERMINANTE,
-        SOLUCION_SISTEMA_CRAMER,
-        TRANSPRUESTA,
-    }
-    
-    /**
-     * El resultado esperado de la operacion. Esto cambia segun al enum Procedimiento
-     */
-    private TipoResultado resultadoEsperado = TipoResultado.MATRIZ;
-    /**
-     * El procedimiento seleccionado actual
-     */
-    private Procedimiento procedimientoSeleccionado = Procedimiento.SUMA;
-    
+    private Controlador controlador;
+
     /**
      * Creates new form MainMenu
      */
-    public MenuPrincipal() {
+    public MenuPrincipal(Controlador controlador) {
         initComponents();
-       
-        //No se puede hacer super para llamar a las siguientes lineas
-        previsualizarMatriz(obtenerMatrizDeSeleccion(selectorMatriz));
-        obtenerProcedimientoSeleccionado(selectorProcedimiento);
-        mostrarArgumentosRelevantes();
+        this.controlador = controlador;
     }
 
     /**
@@ -234,25 +172,67 @@ public class MenuPrincipal extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Retorna el elemento de la interfaz que es el selector de matriz 
+     */
+    public javax.swing.JComboBox<String> getSelectorMatriz()
+    { return selectorMatriz; }
+
+    /**
+     * Retorna el elemento de la interfaz que es el selector de matriz para las operaciones.
+     * En este caso es el primer selector que corresponde a la primera matriz (argumento)
+     */
+    public javax.swing.JComboBox<String> getSelectorMatriz1()
+    { return selectorMatriz1; }
+
+    /**
+     * Retorna el elemento de la interfaz que es el selector de matriz para las operaciones.
+     * En este caso es el segundo selector que corresponde a la segunda matriz (argumento)
+     */
+    public javax.swing.JComboBox<String> getSelectorMatriz2()
+    { return selectorMatriz2; }
+
+    /**
+     * Retorna el elemento de la interfaz que es el selector de procedimiento a realizar.
+     */
+    public javax.swing.JComboBox<String> getSelectorProcedimiento()
+    { return selectorProcedimiento; }
+
+    /**
+     * Retorna el elemento de la interfaz que es el selector de escalar. No es mucho un selector
+     * pero igual se utiliza para especificar el escalar a utilizar en el procedimiento
+     */
+    public javax.swing.JSpinner getSelectorEscalar()
+    { return selectorEscalar; }
+
+    /**
+     * Retorna el objeto controlador que creo la instancia de esta clase.
+     */
+    public Controlador getControlador()
+    { return this.controlador; }
+
+    //Delegado a la clase controlador
     private void editarMatrizBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarMatrizBotonActionPerformed
         // TODO add your handling code here:
-        presionarBotonEditar();
+        controlador.presionarBotonEditar();
     }//GEN-LAST:event_editarMatrizBotonActionPerformed
 
+    //Delegado a la clase controlador
     private void calcularBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularBotonActionPerformed
         // TODO add your handling code here:
-        presionarBotonCalcular();
+        controlador.presionarBotonCalcular();
     }//GEN-LAST:event_calcularBotonActionPerformed
 
+    //Delegado a la clase controlador
     private void selectorProcedimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectorProcedimientoActionPerformed
         // TODO add your handling code here:
-        obtenerProcedimientoSeleccionado(selectorProcedimiento);
-        mostrarArgumentosRelevantes(); 
+        controlador.procedimientoCambiado();
     }//GEN-LAST:event_selectorProcedimientoActionPerformed
 
+    //Delegado a la clase controlador
     private void selectorMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectorMatrizActionPerformed
         // TODO add your handling code here:
-        previsualizarMatriz(obtenerMatrizDeSeleccion(selectorMatriz));
+        controlador.matrizSeleccionadaCambiada();
     }//GEN-LAST:event_selectorMatrizActionPerformed
 
     /**
@@ -292,7 +272,7 @@ public class MenuPrincipal extends JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal().setVisible(true);
+                new MenuPrincipal(controlador).setVisible(true);
             }
         });
     }
@@ -302,9 +282,9 @@ public class MenuPrincipal extends JFrame {
      * o se muestran los argumentos para que el usuario no se confunda de
      * cuales argumentos son los que importan.
      */
-    private void mostrarArgumentosRelevantes()
+    public void mostrarArgumentosRelevantes(Controlador.Procedimiento procedimiento)
     {
-        switch(procedimientoSeleccionado)
+        switch(procedimiento)
         {
             case SUMA:
                     labelOperacion.setText("+");
@@ -382,221 +362,10 @@ public class MenuPrincipal extends JFrame {
     }
     
     /**
-     * Obtiene el objeto MATRIZ seleccionado sacado del selector JComboBox de
- la interfaz grafica
-     * @param seleccion JComboBox Selector de matriz
-     * @return MATRIZ El objeto matriz correspondiente a la seleccion
-     */
-    private Matriz obtenerMatrizDeSeleccion(javax.swing.JComboBox<String> seleccion)
-    {
-        //System.out.println(seleccion.getSelectedItem().toString());
-        switch(seleccion.getSelectedItem().toString())
-        {
-            case "A":
-                return this.matrizA;
-            case "B":
-                return this.matrizB;
-            case "C":
-                return this.matrizC;
-            case "D":
-                return this.matrizD;
-            case "E":
-                return this.matrizE;
-            case "F":
-                return this.matrizF;
-            case "G":
-                return this.matrizG;
-            case "H":
-                return this.matrizH;
-            default:
-                return null;
-        }
-    }
-    
-    /**
-     * Obtiene el procedimiento seleccionado a partir del selector de procedimiento
-     * que se encuentra en la interfaz grafica
-     * @param seleccion JComboBox Selector de procedimiento
-     */
-    private void obtenerProcedimientoSeleccionado(javax.swing.JComboBox<String> seleccion)
-    {
-        switch(seleccion.getSelectedItem().toString())
-        {
-            case "Suma de dos matrices":
-                resultadoEsperado = TipoResultado.MATRIZ;
-                procedimientoSeleccionado = Procedimiento.SUMA;
-                break;
-            case "Multiplicacion por Escalar":
-                resultadoEsperado = TipoResultado.MATRIZ;
-                procedimientoSeleccionado = Procedimiento.MULTIPLICACION_ESCALAR;
-                break;
-            case "Multiplicacion entre Matrices":
-                resultadoEsperado = TipoResultado.MATRIZ;
-                procedimientoSeleccionado = Procedimiento.MULTIPLICACION_MATRIZ;
-                break;
-            case "Inversa de Matriz por Gauss-Jordan":
-                resultadoEsperado = TipoResultado.MATRIZ;
-                procedimientoSeleccionado = Procedimiento.INVERSA_GJ;
-                break;
-            case "Solucion Sistema de Ecuaciones por Gauss-Jordan":
-                resultadoEsperado = TipoResultado.MATRIZ;
-                procedimientoSeleccionado = Procedimiento.SOLUCION_SISTEMA_GJ;
-                break;
-            case "Determinante de Matriz":
-                resultadoEsperado = TipoResultado.NUMERO;
-                procedimientoSeleccionado = Procedimiento.DETERMINANTE;
-                break;
-            case "Solucion Sistema de Ecuaciones por Cramer":
-                resultadoEsperado = TipoResultado.MATRIZ;
-                procedimientoSeleccionado = Procedimiento.SOLUCION_SISTEMA_CRAMER;
-                break;
-            case "Transpuesta de Matriz":
-                resultadoEsperado = TipoResultado.MATRIZ;
-                procedimientoSeleccionado = Procedimiento.TRANSPRUESTA;
-                break;
-            default:
-                break;
-        }
-    }
-    
-    /**
-     * Realiza el procedimiento seleccionado, pasando como parametros los argumentos
-     * deseados. Devuelve la respuesta en forma de Matriz, aunque sea un solo numero.
-     * @param parametros Object[] Aqui se puede introducir objetos MATRIZ o flotantes
-     * @return MATRIZ Respuesta obtenida del procedimiento.
-     */
-    private Matriz realizarProcedimiento(Object[] parametros)
-    {
-        //System.out.println(seleccion.getSelectedItem().toString());
-        Matriz retorno;
-        switch(procedimientoSeleccionado)
-        {
-            case SUMA:
-                retorno = manipuladorMatrices.sumaEntreMatrices((Matriz)parametros[0], (Matriz)parametros[1]);
-                break;
-            case MULTIPLICACION_ESCALAR:
-                retorno = manipuladorMatrices.multiplicacionPorEscalar((Matriz)parametros[0], (float)parametros[2]);
-                break;
-            case MULTIPLICACION_MATRIZ:
-                retorno = manipuladorMatrices.productoEntreMatrices((Matriz)parametros[0], (Matriz)parametros[1]);
-                break;
-            case INVERSA_GJ:
-                retorno = manipuladorMatrices.calcularInversa_GJ((Matriz)parametros[0]);
-                break;
-            case SOLUCION_SISTEMA_GJ:
-                retorno = manipuladorMatrices.solucionarSistemaGJ((Matriz)parametros[0]);
-                break;
-            case DETERMINANTE:
-                retorno = manipuladorMatrices.calcularDeterminante((Matriz)parametros[0]);
-                break;
-            case SOLUCION_SISTEMA_CRAMER:
-                retorno = manipuladorMatrices.solucionarSistemaCramer((Matriz)parametros[0]);
-                break;
-            case TRANSPRUESTA:
-                retorno = manipuladorMatrices.calcularTranspuesta((Matriz)parametros[0]);
-                break;
-            default:
-                retorno = null;
-                break;
-        }
-        return retorno;
-    }
-    
-    /**
-     * Guarda los cambios realizados en la interfaz de edicion de matriz
-     * en el objeto matriz que se habia seleccionado para editar.
-     */
-    public void guardarCambiosMatriz()
-    {
-        final Matriz guardado = menuEditarMatrices.getMatriz();
-        
-        switch(guardado.getId())
-        {
-            case "A":
-                matrizA = guardado;
-                break;
-            case "B":
-                matrizB = guardado;
-                break;
-            case "C":
-                matrizC = guardado;
-                break;
-            case "D":
-                matrizD = guardado;
-                break;
-            case "E":
-                matrizE = guardado;
-                break;
-            case "F":
-                matrizF = guardado;
-                break;
-            case "G":
-                matrizG = guardado;
-                break;
-            case "H":
-                matrizH = guardado;
-                break;
-        }
-        previsualizarMatriz(obtenerMatrizDeSeleccion(selectorMatriz));
-    }
-    
-    /**
-     * Obtiene la matriz seleccionada a editar y la envia como parametro a
-     * la vista del menu editor de matrices, y muestra el menu.
-     */
-    private void presionarBotonEditar()
-    {
-        final Matriz matrizSeleccionada = obtenerMatrizDeSeleccion(selectorMatriz);
-        
-        menuEditarMatrices = new EditorMatrices(matrizSeleccionada, this);
-        menuEditarMatrices.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        menuEditarMatrices.setVisible(true);
-    }
-    
-    /**
-     * Manda a llamar la operacion deseada dependiendo del procedimiento 
-     * seleccionado. Al obtener una respuesta, la envia a que se imprima con
-     * los otros metodos. Si hay un error, lo envia a procesar errores.
-     */
-    private void presionarBotonCalcular()
-    {
-        final Matriz matrizSeleccionada1 = obtenerMatrizDeSeleccion(selectorMatriz1);
-        final Matriz matrizSeleccionada2 = obtenerMatrizDeSeleccion(selectorMatriz2);
-        
-        //Aqui se pudo haber creado una clase para representar el arreglo
-        //pero no se considero necesario debido a que es el unico lugar donde
-        //se utiliza y no hay sentido de escalabilidad. Los indice 0 y 1 siempre
-        //seran matrices y el indice 2 sera siempre el escalar flotante.
-        Object[] parametros = new Object[3];
-            parametros[0] = matrizSeleccionada1;
-            parametros[1] = matrizSeleccionada2;
-            parametros[2] = (float)selectorEscalar.getValue();
-        
-        obtenerProcedimientoSeleccionado(selectorProcedimiento);
-        
-        Matriz resultado = realizarProcedimiento(parametros);
-        
-        if (resultado.getError() != Matriz.ErrorMatriz.NINGUNO)
-        {
-            mostrarResultadoError(resultado.getError());
-            return;
-        }
-        
-        if (resultadoEsperado == TipoResultado.MATRIZ)
-        {
-            mostrarResultadoMatriz(resultado);
-        }
-        else if (resultadoEsperado == TipoResultado.NUMERO)
-        {
-            mostrarResultadoNumero(resultado.getValor(0, 0));
-        }
-    }
-    
-    /**
      * Previsualiza la matriz a editar en la interfaz grafica.
      * @param matriz MATRIZ La matriz a mostrar en la interfaz grafica.
      */
-    private void previsualizarMatriz(Matriz matriz)
+    public void previsualizarMatriz(Matriz matriz)
     {
         visualizadorMatrizE.setText("");
         ArrayList<String> visualizacion = matriz.mostrarElemento(-1, -1);
@@ -610,7 +379,7 @@ public class MenuPrincipal extends JFrame {
      * Muestra el resultado final de la operacion realizada
      * @param matriz MATRIZ La matriz obtenida del resultado.
      */
-    private void mostrarResultadoMatriz(Matriz matriz)
+    public void mostrarResultadoMatriz(Matriz matriz)
     {
         visualizadorMatrizR.setText("");
         ArrayList<String> visualizacion = matriz.mostrarElemento(-1, -1);
@@ -624,52 +393,9 @@ public class MenuPrincipal extends JFrame {
      * Muestra el resultado final de la operacion realizada.
      * @param numero float El numero obtenido del resultado.
      */
-    private void mostrarResultadoNumero(float numero)
+    public void mostrarResultadoNumero(float numero)
     {
         visualizadorMatrizR.setText(""+numero);
-    }
-    
-    /**
-     * Si se recibe una matriz con error marcado al hacer alguna operacion,
-     * se alimenta a esta funcion para que muestre un mensaje de dialogo al
-     * usuario sobre el error.
-     * @param error ErrorMatriz Tipo de error al hacer la operacion
-     */
-    private void mostrarResultadoError(Matriz.ErrorMatriz error)
-    {
-        String mensajeError;
-        switch(error)
-        {
-            case NO_CUADRADA:
-                mensajeError = "La matriz introducida no es cuadrada.\n"
-                              +"Por favor, introduzca una que si lo sea";
-                break;
-            case SINGULAR:
-                mensajeError = "La matriz introducida es singular.\n"
-                              +"Por favor, introduzca una que no lo sea";
-                break;
-            case METODO_INCOMPATIBLE:
-                mensajeError = "La matriz introducida es incompatible con el metodo.\n"
-                              +"Por favor, introduzca una que si lo sea.\n"
-                              +"(Los metodos que solucionan sistemas no aceptan matrices < 2x3)";
-                break;
-            case DIMENSIONES_INCOMPATIBLES:
-                mensajeError = "Las dimensiones de las matrices introducidas no son correctas.\n"
-                              +"Por favor, utilice matrices con dimensiones compatibles";
-                break;
-            case ERROR_MATEMATICO:
-                mensajeError = "Hubo un error matematico.\n"
-                              +"Por favor, verifique los valores introducidos,\n"
-                              +"introduzca una matriz diferente o intente con otro metodo";
-                break;
-            default:
-                mensajeError = "Error desconocido.\n"
-                              +"Por favor, verifique los valores introducidos,\n"
-                              +"introduzca una matriz diferente o intente con otro metodo";
-                break;
-        }
-        
-        JOptionPane.showMessageDialog(null, mensajeError);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

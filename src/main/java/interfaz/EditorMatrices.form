@@ -58,10 +58,8 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="arribaBoton" pref="50" max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="abajoBoton" max="32767" attributes="0"/>
-                                              <Component id="cruceta" pref="50" max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="abajoBoton" max="32767" attributes="0"/>
+                                          <Component id="cruceta" pref="50" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="derechaBoton" min="-2" pref="50" max="-2" attributes="0"/>
@@ -113,10 +111,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="arribaBoton" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="izquierdaBoton" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="derechaBoton" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="cruceta" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="izquierdaBoton" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="abajoBoton" min="-2" pref="50" max="-2" attributes="0"/>
